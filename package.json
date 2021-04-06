@@ -8,7 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
-    "onyx-m2-react": "^0.0.4",
+    "onyx-m2-react": "^0.0.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-hotkeys-hook": "^2.4.0",
