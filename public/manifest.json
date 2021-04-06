@@ -1,0 +1,15 @@
+{
+  "short_name": "Onyx M2",
+  "name": "Onyx M2 Instrument Cluster",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
