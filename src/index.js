@@ -14,6 +14,16 @@ const pin = global.M2?.getPreference('server_pin') || params.get('pin') || proce
 const secure = params.get('secure') || process.env.REACT_APP_CONFIG_SECURE || 'true'
 
 async function init() {
+  if (!server || !pin) {
+    return ReactDOM.render(
+      <h1 style={{color: 'white'}}>
+        Instrument cluster not configured properly. Run from the Onyx M2 mobile app, or
+        pass in <code>server</code> and <code>pin</code> parameters in the url.
+      </h1>,
+      document.getElementById('root')
+    )
+  }
+
   console.log(`Loading DBC from url "${dbcUrl}"`)
   const { data: dbcFile } = await axios(dbcUrl)
   ReactDOM.render(

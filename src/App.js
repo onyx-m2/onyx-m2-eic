@@ -28,7 +28,7 @@ import { LeftStatusTextValue, RightStatusTextValue } from './components/Base'
 
 /**
  * The app component handles on/off, turn indicators, the status area,
- * the hotkey simulator (for testing on pc), and the design layout "grid". Everying
+ * the hotkey simulator (for testing on pc), and the design layout "grid". Everything
  * else is delegated to the left, center, and right cluster components.
  */
 export default function App(props) {
