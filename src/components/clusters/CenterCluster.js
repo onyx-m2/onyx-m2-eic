@@ -37,7 +37,7 @@ export default function CenterCluster() {
   const dialRegenPowerLimit = dialRegenZero + regenPowerLimit * dialRegenPowerTick
 
   const dialBottom = 32
-  const dialRadius = 43
+  const dialRadius = 45
   const dialWidth = 3
   const ringRadius = 40
   const ringWidth = 1
@@ -69,7 +69,7 @@ export default function CenterCluster() {
       />
 
       {/* Needle */}
-      <line transform={`rotate(${-139.5})`} stroke={theme.indicator.white} strokeWidth={ringWidth} fill='none'
+      <line transform={`rotate(${-138.5})`} stroke={theme.indicator.white} strokeWidth={ringWidth} fill='none'
             x1={ringRadius} x2={ringRadius + needleLength} y1='0' y2='0'/>
 
       {/* <Needle transform={`rotate(${needleAngle})`} stroke={theme.indicator.white} strokeWidth={ringWidth} fill='none'

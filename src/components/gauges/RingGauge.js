@@ -51,6 +51,15 @@ export function Range(props) {
   const outerY2 = Math.sin(rangeToAngle) * (radius + width)
 
   return (
+    <AnimatedPath style={{'--stroke-dashoffset': 0}} strokeWidth={3} fill='none' stroke={color}
+      d={`
+        M ${x1}, ${y1}
+        A ${radius}, ${radius} 0 ${largeArcFlag} 1 ${x2}, ${y2}
+      `}
+    />
+  )
+
+  return (
     <g>
       <path fill={color} stroke='none'
         d={`
@@ -164,5 +173,7 @@ export function Marker(props) {
 }
 
 const AnimatedPath = styled.path`
-  transition: all 0.3s ease;
+  --stroke-dashoffset: 0;
+  stroke-dasharray: 400;
+  stroke-dashoffset: var(--stroke-dashoffset);
 `
