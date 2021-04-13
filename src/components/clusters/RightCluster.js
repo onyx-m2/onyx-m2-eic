@@ -5,7 +5,10 @@ import { useSignalState } from 'onyx-m2-react'
 import { PrimaryTextValue, SecondaryTextIndicator, TextUnits } from '../Base'
 import ArcGauge, { Indicator } from '../gauges/ArcGauge'
 
-export default function RightCluster(props) {
+/**
+ * Right cluster displaying batter battery and consumption information.
+ */
+export default function RightCluster() {
   const theme = useContext(ThemeContext)
 
   const ratedConsumption = useSignalState('UI_ratedConsumption', 0)
@@ -18,7 +21,10 @@ export default function RightCluster(props) {
   const nominalFullPackEnergy = useSignalState('BMS_nominalFullPackEnergy', 0)
   const nominalEnergyRemaining = useSignalState('BMS_nominalEnergyRemaining', 0)
   const energyToChargeComplete = useSignalState('BMS_energyToChargeComplete', 0)
-  const chargeLimit = (energyToChargeComplete + nominalEnergyRemaining) / nominalFullPackEnergy * 100
+  var chargingLimit = 0
+  if (nominalFullPackEnergy !== 0) {
+    chargingLimit = (energyToChargeComplete + nominalEnergyRemaining) / nominalFullPackEnergy * 100
+  }
 
   // const tripPlanningActive = useSignalState('UI_tripPlanningActive', 0)
   // const energyAtDestination = useSignalState('UI_energyAtDestination', 0)
@@ -42,7 +48,7 @@ export default function RightCluster(props) {
       {/* battery percentage */}
       <PrimaryTextValue x={66} y={-8}>{socText}</PrimaryTextValue>
       <TextUnits x={66} y={-5}>percent</TextUnits>
-      <BatteryLevelGauge soc={usableSOC} limit={chargeLimit} />
+      <BatteryLevelGauge soc={usableSOC} limit={chargingLimit} />
 
       {/* secondary displays */}
       <path fill='none' stroke={theme.indicator.white} strokeWidth={0.2}
@@ -67,9 +73,7 @@ function BatteryLevelGauge(props) {
 
   if (soc === -1) {
     return (
-      <ArcGauge from={0} to={100} height={height + 3} width={3} radius={90}>
-        <Indicator from={0} to={100} color={'url(#slash-pattern)'}  />
-      </ArcGauge>
+      <ArcGauge height={height + 3} width={3} radius={90} />
     )
   }
 
@@ -82,10 +86,9 @@ function BatteryLevelGauge(props) {
   }
 
   return (
-    <ArcGauge from={0} to={100} height={theme.panel.height + 3} width={3} radius={90}>
-      <Indicator from={0} to={soc} color={color}  />
-      <Indicator from={soc} to={limit} color={theme.scale.white} />
-      <Indicator from={limit} to={100} color='url(#slash-pattern)' />
+    <ArcGauge height={height + 3} width={3} radius={90}>
+      <Indicator value={limit} color={theme.indicator.white} />
+      <Indicator value={soc} color={color}  />
     </ArcGauge>
   )
 }

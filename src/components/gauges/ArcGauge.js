@@ -1,215 +1,83 @@
 import React, { Children, cloneElement } from 'react'
 import styled from 'styled-components'
+import { AnimatedPath } from '../Base'
 
-
-// from, to
-// ranges: [{ from, to, color}]
-// markers: [{ value, color }]
+/**
+ * Arc gauge component specified by a radius, height, and a width. The gauge will be
+ * centered vertically, and it's horizontal position is determined by the radius. The
+ * gauge assumes a centered view box. The width specifies the thickness of the gauge
+ * itself.
+ *
+ * The gauge accepts `Indicator` children that will be displayed (in overlapping
+ * fashion) and these have values of interest. All values must be normalized by
+ * callers to be between 0 and 100.
+ */
 export default function ArcGauge(props) {
-  const { from, to, height, radius, width, children } = props
+  const { height, radius, children } = props
+  const width = props.width || 2
+
+  const bottom = height / 2
+  const minAngle = Math.asin(bottom / radius)
+  const x1 = Math.cos(minAngle) * radius
+  const y1 = Math.sin(minAngle) * radius
 
   const top = - height / 2
-  const bottom = height / 2
-
-  const uMin = from
-  const uMax = to
-
-  const aMin = Math.asin(bottom / radius)
-  const aMax = Math.asin(top / radius)
-
-  const aPerU = (aMax - aMin) / (uMax - uMin)
+  const maxAngle = Math.asin(top / radius)
+  var x2 = Math.cos(maxAngle) * radius
+  var y2 = Math.sin(maxAngle) * radius
 
   return (
-    // <svg style={{position: 'absolute'}} viewBox='-100, -46, 200, 100' >
-    <g>
+    <g className='ArcGauge'>
+      <TickedBackground x1={x1} y1={y1} x2={x2} y2={y2} radius={radius} width={width}/>
       {Children.map(children, c => cloneElement(c, {
-        ...c.props, top, bottom, radius, uMin, uMax, aMin, aMax, aPerU, width
+        ...c.props, x1, y1, x2, y2, radius, width
       }))}
     </g>
   )
 }
 
-export function Ranges(props) {
-  return (
-    <g>
-      {props.children}
-    </g>
-  )
-}
-
-export function Scale(props) {
-  const { from, to, color, radius, aMin, aPerU } = props
-  const width = props.width || 2
-
-  const a1 = aMin + from * aPerU
-  const a2 = aMin + to * aPerU
-  // if (from !== uMin) {
-  //   y1 -= 1
-  // }
-  // if (to !== uMax) {
-  //   y2 += 1
-  // }
-
-  var x1 = Math.cos(a1) * radius
-  var x2 = Math.cos(a2) * radius
-
-  var y1 = Math.sin(a1 /*- aMin*/) * radius// + top
-  var y2 = Math.sin(a2 /*- aMin*/) * radius// + top
-
-  var hOffset = (radius > 0 ? 1 : -1) * width
-
-  var sweep1 = radius > 0 ? 0 : 1
-  var sweep2 = radius < 0 ? 0 : 1
-
-  // var textOffset = radius > 0 ? width + 3 : - width - 3
-  // var textAnchor = radius > 0 ? 'start' : 'end'
-
-  return (
-    <g>
-      <path fill={color} stroke='none'
-        d={`
-          M ${x1}, ${y1}
-          A ${radius}, ${radius} 0 0 ${sweep1} ${x2}, ${y2}
-          h ${hOffset}
-          A ${radius + hOffset }, ${radius + hOffset} 0 0 ${sweep2} ${x1 + hOffset}, ${y1}
-          z
-        `}
-        />
-      {/* {from !== uMin &&
-        <Value className='gauge-font' x={x1 + textOffset} y={y1} textAnchor={textAnchor} fill='white'>{from}</Value>
-      } */}
-
-    </g>
-  )
-
-  // // convert up and down to a single frame of reference with zero
-  // // as (0, radius), i.e the top of the circle
-  // const minDegrees = 360 - up
-  // const maxDegrees = down
-
-  // // map the 'from' and 'to' units to degrees in this frame of reference
-  // const degreesPerUnit = (down + up) / (max - min)
-  // const fromDegrees = minDegrees + from * degreesPerUnit
-  // const toDegrees = minDegrees + to * degreesPerUnit
-
-  // //let fromX, fromY
-  // // let fromDegreesToHorizontal
-  // // if (fromDegrees < 90) {
-  // //   fromDegreesToHorizontal = fromDegrees - 90
-  // // } else {
-  // //   fromDegreesToHorizontal = 90 - fromDegrees
-  // // }
-
-  // //const fromRadians = fromDegreesToHorizontal * Math.PI / 180
-  // const fromRadians = fromDegrees * Math.PI / 180
-  // const fromX = radius * Math.cos(fromRadians) - radius + hOffset
-  // const fromY = radius * Math.sin(fromRadians) + radius
-
-  // // let toDegreesToHorizontal, toOffset
-  // // if (toDegrees < 90) {
-  // //   toDegreesToHorizontal = toDegrees - 90
-  // //   toOffset = 0
-  // // } else {
-  // //   toDegreesToHorizontal = 90 - toDegrees
-  // //   toOffset = radius
-  // // }
-
-  // //const toRadians = toDegreesToHorizontal * Math.PI / 180
-  // const toRadians = toDegrees * Math.PI / 180
-  // const toX = radius * Math.cos(toRadians) - radius + hOffset
-  // const toY = radius * Math.sin(toRadians) + radius
-
-  // // const sweepUp = -up * Math.PI / 180
-  // // const sweepDown = down * Math.PI / 180
-
-
-  // //const fromX = radius * Math.cos(sweepUp) - radius + hOffset
-  // //const fromY = radius * Math.sin(sweepUp) + radius
-  // // const toX = radius * Math.cos(sweepDown) - radius + hOffset
-  // // const toY = radius * Math.sin(sweepDown) + radius
-
-
-  // // const fromX = radius * Math.cos(sweepUp) - radius + hOffset
-  // // const fromY = radius * Math.sin(sweepUp) + radius
-  // // const toX = radius * Math.cos(sweepDown) - radius + hOffset
-  // // const toY = radius * Math.sin(sweepDown) + radius
-
-  // return (
-  //   <path strokeLinecap='square' strokeWidth={3} fill='none' stroke={color}
-  //     d={`
-  //       M ${fromX}, ${fromY}
-  //       A ${radius}, ${radius} 0 0 1 ${toX}, ${toY}
-  //     `}
-  //   />
-  // )
-}
-
-// const Value = styled.text`
-//   font-family: 'Gotham Extra Light';
-//   font-size: 8px;
-// `
-
-// const AnimatedRect = styled.rect`
-//   transition: all 0.3s ease;
-// `
-
-export function Marker(props) {
-  const { value, color, offset, interval, min, max } = props
-  var x = value
-  if (x < min) {
-    x = min
-  }
-  if (x > max) {
-    x = max
-  }
-  x = (x + offset) * interval
-  return (
-    <AnimatedPath d='M -8 16 L 0 0 L 8 16 Z'
-      fill={color}
-      stroke='black'
-      stroke-width='2'
-      stroke-linecap='square'
-      transform={`translate(${x}, -2)`}
-    />
-  )
-}
-
+/**
+ * An indicator component for the arc gauge, specified by a value and a color. Values
+ * passed to indicators are normalized to 0-100 range. Multiple indicators can be used
+ * with in a single gauge and are drawn in order (so the second one is drawn on top of
+ * of the first one).
+ */
 export function Indicator(props) {
-  const { from, to, color, radius, aMin, aPerU } = props
-  const width = props.width || 2
-
-  const a1 = aMin + from * aPerU
-  const a2 = aMin + to * aPerU
-
-  var x1 = Math.cos(a1) * radius
-  var x2 = Math.cos(a2) * radius
-
-  var y1 = Math.sin(a1 /*- aMin*/) * radius// + top
-  var y2 = Math.sin(a2 /*- aMin*/) * radius// + top
-
-  var hOffset = (radius > 0 ? 1 : -1) * width / 2
-
-  var sweep = radius > 0 ? 0 : 1
-
-  // var textOffset = radius > 0 ? width + 3 : - width - 3
-  // var textAnchor = radius > 0 ? 'start' : 'end'
-
+  const { value, color, x1, y1, x2, y2, radius, width } = props
+  const clampedValue = Math.max(0, Math.min(100, value))
+  const offset = (radius > 0 ? 1 : -1) * width / 2
+  const sweep = radius > 0 ? 0 : 1
+  const dashOffset = (100 - clampedValue) / 100
   return (
-    <g>
-      <path fill='none' stroke={color} strokeWidth={width}
+    <g className='Indicator'>
+      <AnimatedPath style={{strokeDashoffset: dashOffset}} pathLength={1} fill='none' stroke={color} strokeWidth={width}
         d={`
-          M ${x1 + hOffset}, ${y1}
-          A ${radius}, ${radius} 0 0 ${sweep} ${x2 + hOffset}, ${y2}
+          M ${x1 + offset}, ${y1}
+          A ${radius}, ${radius} 0 0 ${sweep} ${x2 + offset}, ${y2}
         `}
         />
-      {/* {from !== uMin &&
-        <Value className='gauge-font' x={x1 + textOffset} y={y1} textAnchor={textAnchor} fill='white'>{from}</Value>
-      } */}
-
     </g>
   )
 }
 
-const AnimatedPath = styled.path`
-  transition: all 0.3s ease;
-`
+function TickedBackground(props) {
+  const { x1, y1, x2, y2, radius, width } = props
+  const offset = (radius > 0 ? 1 : -1) * width / 2
+  const sweep = radius > 0 ? 0 : 1
+  return (
+    <g className='HashedBackground'>
+      <TickedPath strokeWidth={width}
+        d={`
+          M ${x1 + offset}, ${y1}
+          A ${radius}, ${radius} 0 0 ${sweep} ${x2 + offset}, ${y2}
+        `}
+        />
+    </g>
+  )
+}
+
+const TickedPath = styled.path`
+  fill: none;
+  stroke: grey;
+  stroke-dasharray: 0.8 1;
+ `

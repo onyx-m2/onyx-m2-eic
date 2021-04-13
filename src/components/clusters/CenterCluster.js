@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
 import { useSignalState } from 'onyx-m2-react';
-import RingGauge, { Range } from '../gauges/RingGauge';
+import RingGauge, { Indicator, Section } from '../gauges/RingGauge';
 import { DisplaySelector } from '../displays/DisplaySelector';
 
 const REGEN_POWER_SNA = 155
@@ -18,25 +18,22 @@ export default function CenterCluster() {
   const inverterPower = useSignalState('DI_elecPower', 0)
   const drivePower = (inverterPower > 0) ? inverterPower : 0
   const drivePowerLimit = useSignalState('DI_sysDrivePowerMax', DRIVE_POWER_SNA)
-  const ratedDrivePower = (drivePowerLimit < 200) ? 200 : drivePowerLimit
+  const ratedDrivePower = 225
 
   const regenPower = (inverterPower < 0) ? -inverterPower : 0
   const regenPowerLimit = useSignalState('DI_sysRegenPowerMax', REGEN_POWER_SNA)
-  const ratedRegenPower = (regenPowerLimit < 60) ? 60 : regenPowerLimit
+  const ratedRegenPower = 60
 
-  // map drive power to a 33-100 scale to fit the scale it gets on the dial
-  const dialDrivePowerOffset = 33
-  const dialDrivePowerTick = (100 - 33) / ratedDrivePower
-  const dialDrivePower = dialDrivePowerOffset + drivePower * dialDrivePowerTick
-  const dialDrivePowerLimit = dialDrivePowerOffset + drivePowerLimit * dialDrivePowerTick
+  // map power value to 0-100 scale using by gauges
+  const drivePowerIncrements = 100 / ratedDrivePower
+  const mappedDrivePower = drivePower * drivePowerIncrements
+  const mappedDrivePowerLimit = (drivePowerLimit !== DRIVE_POWER_SNA) ? drivePowerLimit * drivePowerIncrements : 0
 
-  // map regen power to a 0 - 31.2 scale to fit dial
-  const dialRegenZero = 31.2
-  const dialRegenPowerTick = -dialRegenZero / ratedRegenPower
-  const dialRegenPower = dialRegenZero + regenPower * dialRegenPowerTick
-  const dialRegenPowerLimit = dialRegenZero + regenPowerLimit * dialRegenPowerTick
+  const regenPowerIncrements = 100 / ratedRegenPower
+  const mappedRegenPower = regenPower * regenPowerIncrements
+  const mappedRegenPowerLimit = (regenPowerLimit !== REGEN_POWER_SNA) ? regenPowerLimit * regenPowerIncrements : 0
 
-  const dialBottom = 32
+  const dialBottom = 34
   const dialRadius = 45
   const dialWidth = 3
   const ringRadius = 40
@@ -49,21 +46,22 @@ export default function CenterCluster() {
   return (
     <g className='CenterCluster'>
       {/* Power Ring */}
-      <RingGauge className='PowerRing' from={0} to={100} bottom={dialBottom} width={dialWidth} radius={dialRadius}>
-        <Range from={0} to={dialRegenPowerLimit} color={'url(#slash-pattern)'} />
-        <Range from={dialRegenPowerLimit} to={31.2} color={theme.scale.white} />
-        <Range from={dialRegenPower} to={31.2} color={theme.indicator.blue} />
-
-        <Range from={33} to={dialDrivePowerLimit} color={theme.scale.white} />
-        <Range from={dialDrivePowerLimit} to={100} color={'url(#backslash-pattern)'} />
-        <Range from={33} to={dialDrivePower} color={theme.indicator.blue} />
+      <RingGauge className='PowerRing' bottom={dialBottom} width={dialWidth} radius={dialRadius}>
+        <Section className='Regen' from={31} to={0} direction={-1} tickGap={0.012}>
+          <Indicator value={mappedRegenPowerLimit} color={theme.indicator.white} />
+          <Indicator value={mappedRegenPower} color={theme.indicator.blue} />
+        </Section>
+        <Section className='Drive' from={34} to={100} direction={1} tickGap={0.0055}>
+          <Indicator value={mappedDrivePowerLimit} color={theme.indicator.white} />
+          <Indicator value={mappedDrivePower} color={theme.indicator.blue} />
+        </Section>
       </RingGauge>
 
       {/* Dial */}
       <path id='centerClusterDial' className='Dial' strokeLinecap='round' strokeWidth={ringWidth} stroke={theme.indicator.white} fill='none'
       d={`
-        M -21 33.7
-        A ${ringRadius}, ${ringRadius} 0 1 1 21, 33.7
+        M -22 33.7
+        A ${ringRadius}, ${ringRadius} 0 1 1 22, 33.7
         Z
       `}
       />

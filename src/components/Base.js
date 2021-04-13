@@ -2,17 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 /**
- * A component that fades in and out of view in place, controlled by the `visible`
+ * A group that fades in and out of view in place, controlled by the `visible`
  * property.
  */
-export const FadeableComponent = styled.div`
-  /*position: relative;*/
-  opacity: ${props => props.visible ? 1 : 0};
-  transition: opacity 0.3s ease;
-  /* visibility: ${props => props.visible ? 'visible' : 'hidden'}; */
-`
-
-export const FadeableGroup = styled.g`
+ export const FadeableGroup = styled.g`
   opacity: ${props => props.visible ? 1 : 0};
   transition: opacity 0.3s ease;
 `
@@ -85,3 +78,9 @@ export function RightStatusTextValue(props) {
     </StatusTextValue>
   )
 }
+
+export const AnimatedPath = styled.path`
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: all 0.5s ease;
+`

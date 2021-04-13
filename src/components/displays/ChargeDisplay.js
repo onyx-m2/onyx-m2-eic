@@ -18,10 +18,9 @@ export default function ChargeDisplay() {
   const lineVoltage = useSignalState('CC_line1Voltage', 0)
   const pilotCurrent = useSignalState('CP_pilotCurrent', 0)
 
-  // current non-drivetrain (aux) power draw
   const packVoltage = useSignalState('BMS_packVoltage', 0)
   const packCurrent = useSignalState('BMS_packCurrent', 0)
-  const chargePower = (packVoltage * packCurrent / 1000)
+  const chargePower = -(packVoltage * packCurrent / 1000)
   const precision = (chargePower < 10) ? 1 : 0
 
   // format charging stats
@@ -61,7 +60,7 @@ export default function ChargeDisplay() {
 
   return (
     <g className='ChargeDisplay'>
-      <HeroTextValue y={-16}>{Math.abs(chargePower).toFixed(precision)}</HeroTextValue>
+      <HeroTextValue y={-16}>{chargePower.toFixed(precision)}</HeroTextValue>
       <HeroTextUnits y={-13}>kw</HeroTextUnits>
 
       <BannerIndicator visible={true} text={chargingText} color={chargingColor}/>

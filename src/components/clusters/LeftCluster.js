@@ -56,10 +56,10 @@ function speedLimitStatus(speed, limit) {
     return EXCESSIVE_SPEEDING_OFFENSE
 }
 
-// from, to
-// ranges: [{ from, to, color}]
-// markers: [{ value, color }]
-export default function LeftCluster(props) {
+/**
+ * Left cluster displaying speed and range information.
+ */
+export default function LeftCluster() {
   const theme = useContext(ThemeContext)
 
   const speed = useSignalState('DI_uiSpeed', -1)
@@ -74,7 +74,7 @@ export default function LeftCluster(props) {
   const { left, right, height, radius } = theme.panel
   return (
     <g className='LeftCluster'>
-      <path fill='none' stroke={theme.indicator.white} strokeWidth={1} strokeLinejoin={'round'}
+      <path className='Outline' fill='none' stroke={theme.indicator.white} strokeWidth={1} strokeLinejoin={'round'}
         d={`
           M ${-left} ${-height / 2}
           H ${-right}
@@ -89,7 +89,7 @@ export default function LeftCluster(props) {
       <SpeedGauge speed={speed} limit={limit} />
 
       {/* secondary displays */}
-      <path fill='none' stroke='white' strokeWidth={0.2}
+      <path className='Separators' fill='none' stroke='white' strokeWidth={0.2}
         d={`
           M ${-left - 6} ${5}
           H ${-right}
@@ -99,7 +99,6 @@ export default function LeftCluster(props) {
         />
       <SecondaryTextIndicator x={-77} y={15} value={limitText} units='max' />
       <SecondaryTextIndicator x={-57} y={15} value={rangeText} units='km' />
-
     </g>
   )
 }
@@ -107,41 +106,40 @@ export default function LeftCluster(props) {
 function SpeedGauge(props) {
   const theme = useContext(ThemeContext)
   const { height } = theme.panel
+  const { yellow, orange, red, blue, white } = theme.indicator
   const { speed, limit } = props
 
   if (speed === -1 || limit === 0) {
     return (
-      <ArcGauge from={0} to={1} height={height + 3} width={3} radius={-90}>
-        <Indicator from={0} to={1} color='url(#backslash-pattern)' />
-      </ArcGauge>
+      <ArcGauge height={height + 3} width={3} radius={-90} />
     )
   }
 
   // the gauge will display a little more than than the speed limit, arbitrarily
-  // choosing 20 km/h more
-  const gaugeLimit = limit + 20
-  const gaugeSpeed = Math.min(speed, gaugeLimit)
+  // choosing 20 km/h more; remap everything to 0-100 range
+  const speedIncrements = 100 / (limit + 20)
+  const mappedLimit = limit * speedIncrements
+  const mappedSpeed = speed * speedIncrements
 
   let indicatorColor
   switch (speedLimitStatus(speed, limit)) {
     case OVER_SPEED_LIMIT:
-      indicatorColor = theme.indicator.yellow
+      indicatorColor = yellow
       break
     case SPEEDING_OFFENSE:
-      indicatorColor = theme.indicator.orange
+      indicatorColor = orange
       break
     case EXCESSIVE_SPEEDING_OFFENSE:
-      indicatorColor = theme.indicator.red
+      indicatorColor = red
       break
     default:
-      indicatorColor = theme.indicator.blue
+      indicatorColor = blue
   }
 
   return (
-    <ArcGauge from={0} to={gaugeLimit} height={height + 3} width={3} radius={-90}>
-      <Indicator from={0} to={limit} color={theme.scale.white} />
-      <Indicator from={limit} to={gaugeLimit} color='url(#backslash-pattern)' />
-      <Indicator from={0} to={gaugeSpeed} color={indicatorColor}  />
+    <ArcGauge height={height + 3} width={3} radius={-90}>
+      <Indicator value={mappedLimit} color={white} />
+      <Indicator value={mappedSpeed} color={indicatorColor}  />
     </ArcGauge>
   )
 }
