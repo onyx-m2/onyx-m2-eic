@@ -53,7 +53,7 @@ export default function App(props) {
       ['DI_odometer', 69420],
       ['DI_gear', 'P'],
       ['DI_sysDrivePowerMax', 200],
-      ['DI_sysRegenPowerMax', 60]
+      ['DI_sysRegenPowerMax', 30]
     ],
 
     // gear selection
