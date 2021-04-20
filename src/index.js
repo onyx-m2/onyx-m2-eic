@@ -9,17 +9,54 @@ import * as serviceWorker from './serviceWorker';
 const dbcUrl = process.env.REACT_APP_CONFIG_DBCURL || 'https://raw.githubusercontent.com/onyx-m2/dbc/master/tesla_model3.dbc'
 
 const params = new URLSearchParams(window.location.search)
-const server = global.M2?.getPreference('server_hostname') || params.get('server') || process.env.REACT_APP_CONFIG_SERVER
-const pin = global.M2?.getPreference('server_pin') || params.get('pin') || process.env.REACT_APP_CONFIG_PIN
-const secure = params.get('secure') || process.env.REACT_APP_CONFIG_SECURE || 'true'
+const server = global.M2?.getPreference('server_hostname') || params.get('server')
+const pin = global.M2?.getPreference('server_pin') || params.get('pin')
+const secure = params.get('secure') || 'true'
+
+// BLE interface
+const BLE_SERVICE_NAME = "Onyx M2"
+const BLE_SERVICE_UUID = "e9377e45-d4d2-4fdc-9e1c-448d8b4e05d5"
+
+async function pairBleDevice() {
+  try {
+    await navigator.bluetooth.requestDevice({
+      filters: [{
+        name: BLE_SERVICE_NAME
+      }],
+      optionalServices: [BLE_SERVICE_UUID]
+    })
+    init()
+  }
+  catch (err) {
+    alert(`Unable to pair with Onyx M2 device: ${err}`)
+  }
+}
 
 async function init() {
-  if (!server || !pin) {
+  // if neither the native interface or a web server is available, try the BLE interface
+  let ble = null
+  if (!global.M2 && !server) {
+    if (await navigator.bluetooth.getAvailability()) {
+      const devices = await navigator.bluetooth.getDevices()
+      if (devices) {
+        ble = devices[0]
+      }
+    }
+  }
+  if ((!server || !pin) && !ble) {
     return ReactDOM.render(
-      <h1 style={{color: 'white'}}>
-        Instrument cluster not configured properly. Run from the Onyx M2 mobile app, or
-        pass in <code>server</code> and <code>pin</code> parameters in the url.
-      </h1>,
+      <div style={{color: 'white'}}>
+        <h1>Instrument cluster not configured properly</h1>
+        <p>
+          Run from the Onyx M2 mobile app, or
+          pass in <code>server</code> and <code>pin</code> parameters in the url. You may
+          also try to connect directly using Bluetooth by pairing the Onyx M2 device
+          using the button below.
+        </p>
+        <button onClick={pairBleDevice}>
+          Pair using Bluetooth
+        </button>
+      </div>,
       document.getElementById('root')
     )
   }
@@ -28,7 +65,7 @@ async function init() {
   const { data: dbcFile } = await axios(dbcUrl)
   ReactDOM.render(
     <React.StrictMode>
-      <M2Provider config={{ server, pin, secure }} dbcFile={dbcFile}>
+      <M2Provider config={{ ble, server, pin, secure }} dbcFile={dbcFile}>
         <SignalProvider>
           <App />
         </SignalProvider>
