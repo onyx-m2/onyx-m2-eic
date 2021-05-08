@@ -60,10 +60,10 @@ export const INSTRUMENTS_THEME = {
   },
   // side panels showing secondary stats
   panel: {
-    left: 44,
-    right: 84,
-    height: 50,
-    radius: 84,
+    left: 46,
+    right: 88,
+    height: 60,
+    radius: 88,
     width: 2,
   }
 }

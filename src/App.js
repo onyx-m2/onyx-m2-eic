@@ -37,7 +37,7 @@ export default function App(props) {
   const [ layoutGridVisible, setLayoutGridVisible ] = useState(false)
   useHotkeys('end', () => setLayoutGridVisible(visible => !visible))
 
-  const displayOn = 1//useSignalState('UI_displayOn', 0)
+  const displayOn = useSignalState('UI_displayOn', 0)
   //const [ m2IsOnline ] = useStatusState({forceOnlineKey: 'pageup', forceOfflineKey: 'pagedown'})
 
   useSignalHotkeySimulation({
@@ -128,7 +128,7 @@ export default function App(props) {
         <CenterCluster />
         <RightCluster/>
         <path className='Separator' strokeWidth='0.5' stroke={theme.indicator.white} fill='none'
-          d='M -100 34
+          d='M -100 40
               h 56
               c 6 0, 6 5, 12 5
               h 64

@@ -44,8 +44,8 @@ export function SvgDefs() {
       </linearGradient>
       <clipPath id='center-cluster-clip'>
         <path d={`
-          M -21 34
-          A 40, 40 0 1 1 21, 34
+          M -22 40
+          A 46, 46 0 1 1 22, 40
           Z
         `}
         />

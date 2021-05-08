@@ -22,11 +22,11 @@ export default function ChassisPaperDoll(props) {
   const rl = useScaledFormatedSignalState(props.rl, scale)
   const rr = useScaledFormatedSignalState(props.rr, scale)
   const vertOffset = -5
-  const horzValueOffset = 20
-  const vertValueOffset = 10
+  const horzValueOffset = 24
+  const vertValueOffset = 14
   return (
     <g className='ChassisPaperDoll'>
-      <ChassisIcon x={-14} y={-52 + vertOffset} width={28} fill={theme.indicator.blue} />
+      <ChassisIcon x={-14} y={-49 + vertOffset} width={28} fill={theme.indicator.blue} />
       <SecondaryTextIndicator x={-horzValueOffset} y={-vertValueOffset + vertOffset} value={fl} units={units} />
       <SecondaryTextIndicator x={horzValueOffset} y={-vertValueOffset + vertOffset} value={fr} units={units} />
       <SecondaryTextIndicator x={-horzValueOffset} y={vertValueOffset + vertOffset} value={rl} units={units} />

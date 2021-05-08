@@ -6,6 +6,6 @@ export default function RightTurnIndicator(props) {
   const theme = useContext(ThemeContext)
   const [state, states] = useNamedValuesSignalState('VCRIGHT_turnSignalStatus', 'SNA')
   return state === states.ON && (
-    <rect className='RightTurnIndicator' rx='2' x='40' y='-40' width='20' height='2' fill={theme.indicator.blue} />
+    <rect className='RightTurnIndicator' rx='2' x='46' y='-46' width='20' height='2' fill={theme.indicator.blue} />
   )
 }

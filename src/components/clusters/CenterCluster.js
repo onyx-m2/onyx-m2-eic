@@ -33,10 +33,10 @@ export default function CenterCluster() {
   const mappedRegenPower = regenPower * regenPowerIncrements
   const mappedRegenPowerLimit = (regenPowerLimit !== REGEN_POWER_SNA) ? regenPowerLimit * regenPowerIncrements : 0
 
-  const dialBottom = 34
-  const dialRadius = 45
+  const dialBottom = 40
+  const dialRadius = 51
   const dialWidth = 3
-  const ringRadius = 40
+  const ringRadius = 46.5
   const ringWidth = 1
 
   //const needleAngleSpan = 2 * Math.PI - 2 * Math.acos(dialBottom / dialRadius)
@@ -60,14 +60,14 @@ export default function CenterCluster() {
       {/* Dial */}
       <path id='centerClusterDial' className='Dial' strokeLinecap='round' strokeWidth={ringWidth} stroke={theme.indicator.white} fill='none'
       d={`
-        M -22 33.7
-        A ${ringRadius}, ${ringRadius} 0 1 1 22, 33.7
+        M -24 40
+        A ${ringRadius}, ${ringRadius} 0 1 1 24, 40
         Z
       `}
       />
 
       {/* Needle */}
-      <line transform={`rotate(${-138.5})`} stroke={theme.indicator.white} strokeWidth={ringWidth} fill='none'
+      <line transform={`rotate(${-139.8})`} stroke={theme.indicator.white} strokeWidth={ringWidth} fill='none'
             x1={ringRadius} x2={ringRadius + needleLength} y1='0' y2='0'/>
 
       {/* <Needle transform={`rotate(${needleAngle})`} stroke={theme.indicator.white} strokeWidth={ringWidth} fill='none'

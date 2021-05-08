@@ -10,7 +10,7 @@ export default function GearIndicator(props) {
     visible = false
   }
   return (
-    <FadeableGroup className='GearIndicator' transform='translate(0, 47)' visible={visible}>
+    <FadeableGroup className='GearIndicator' transform='translate(0, 53)' visible={visible}>
       <GearTextValue x='-15' selected={gear === values.P}>P</GearTextValue>
       <GearTextValue x='-5' selected={gear === values.R}>R</GearTextValue>
       <GearTextValue x='5' selected={gear === values.N}>N</GearTextValue>

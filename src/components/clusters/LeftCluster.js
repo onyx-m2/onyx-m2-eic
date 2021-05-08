@@ -84,21 +84,21 @@ export default function LeftCluster() {
         />
 
       {/* speed indicator */}
-      <PrimaryTextValue x={-66} y={-8}>{speedText}</PrimaryTextValue>
-      <TextUnits x={-66} y={-5}>km/h</TextUnits>
+      <PrimaryTextValue x={-70} y={-10}>{speedText}</PrimaryTextValue>
+      <TextUnits x={-70} y={-7}>km/h</TextUnits>
       <SpeedGauge speed={speed} limit={limit} />
 
       {/* secondary displays */}
       <path className='Separators' fill='none' stroke='white' strokeWidth={0.2}
         d={`
-          M ${-left - 6} ${5}
+          M ${-left - 10} ${5}
           H ${-right}
-          M ${-67} ${8}
-          V 22
+          M ${-70} ${8}
+          V 24
         `}
         />
-      <SecondaryTextIndicator x={-77} y={15} value={limitText} units='max' />
-      <SecondaryTextIndicator x={-57} y={15} value={rangeText} units='km' />
+      <SecondaryTextIndicator x={-80} y={17} value={limitText} units='max' />
+      <SecondaryTextIndicator x={-60} y={17} value={rangeText} units='km' />
     </g>
   )
 }
@@ -111,7 +111,7 @@ function SpeedGauge(props) {
 
   if (speed === -1 || limit === 0) {
     return (
-      <ArcGauge height={height + 3} width={3} radius={-90} />
+      <ArcGauge height={height + 3} width={3} radius={-96} />
     )
   }
 
@@ -137,7 +137,7 @@ function SpeedGauge(props) {
   }
 
   return (
-    <ArcGauge height={height + 3} width={3} radius={-90}>
+    <ArcGauge height={height + 3} width={3} radius={-96}>
       <Indicator value={mappedLimit} color={white} />
       <Indicator value={mappedSpeed} color={indicatorColor}  />
     </ArcGauge>

@@ -6,8 +6,8 @@ export default function SecondaryDisplay(props) {
   return (
     <g className='SecondaryDisplay'>
       { children }
-      <BannerRect x='-50' y='22' width='100' height='12' />
-      <NameText y='28'>{name}</NameText>
+      <BannerRect x='-56' y='28' width='100' height='12' />
+      <NameText y='34'>{name}</NameText>
     </g>
   )
 }

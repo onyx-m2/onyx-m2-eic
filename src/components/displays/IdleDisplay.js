@@ -10,7 +10,7 @@ import React from 'react'
 export default function IdleDisplay() {
   return (
     <g className='IdleDisplay'>
-      <circle r='32' fill='url(#ball-gradient)' />
+      <circle r='38' fill='url(#ball-gradient)' />
       <text y='0' fontFamily='Gotham Bold' textAnchor='middle' dominantBaseline='middle'>
         ONYX
       </text>

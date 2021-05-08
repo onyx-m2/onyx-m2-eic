@@ -64,7 +64,7 @@ export const StatusTextValue = styled(BaseTextValue)`
 export function LeftStatusTextValue(props) {
   const { children } = props
   return (
-    <StatusTextValue className='LeftStatusTextValue' x='-100' y='46' textAnchor='start'>
+    <StatusTextValue className='LeftStatusTextValue' x='-100' y='52' textAnchor='start'>
       {children}
     </StatusTextValue>
   )
@@ -73,7 +73,7 @@ export function LeftStatusTextValue(props) {
 export function RightStatusTextValue(props) {
   const { children } = props
   return (
-    <StatusTextValue className='RightStatusTextValue' x='100' y='46' textAnchor='end'>
+    <StatusTextValue className='RightStatusTextValue' x='100' y='52' textAnchor='end'>
       {children}
     </StatusTextValue>
   )

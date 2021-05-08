@@ -46,21 +46,21 @@ export default function RightCluster() {
         />
 
       {/* battery percentage */}
-      <PrimaryTextValue x={66} y={-8}>{socText}</PrimaryTextValue>
-      <TextUnits x={66} y={-5}>percent</TextUnits>
+      <PrimaryTextValue x={70} y={-10}>{socText}</PrimaryTextValue>
+      <TextUnits x={70} y={-7}>percent</TextUnits>
       <BatteryLevelGauge soc={usableSOC} limit={chargingLimit} />
 
       {/* secondary displays */}
       <path fill='none' stroke={theme.indicator.white} strokeWidth={0.2}
         d={`
-          M ${left + 6} ${5}
+          M ${left + 10} ${5}
           H ${right}
-          M ${67} ${8}
-          V 22
+          M ${70} ${8}
+          V 24
         `}
         />
-      <SecondaryTextIndicator x={57} y={15} value={consumptionText} units='wh/km' />
-      <SecondaryTextIndicator x={77} y={15} value={temperatureText} units='deg' />
+      <SecondaryTextIndicator x={60} y={17} value={consumptionText} units='wh/km' />
+      <SecondaryTextIndicator x={80} y={17} value={temperatureText} units='deg' />
     </g>
 
   )
@@ -73,7 +73,7 @@ function BatteryLevelGauge(props) {
 
   if (soc === -1) {
     return (
-      <ArcGauge height={height + 3} width={3} radius={90} />
+      <ArcGauge height={height + 3} width={3} radius={96} />
     )
   }
 
@@ -86,7 +86,7 @@ function BatteryLevelGauge(props) {
   }
 
   return (
-    <ArcGauge height={height + 3} width={3} radius={90}>
+    <ArcGauge height={height + 3} width={3} radius={96}>
       <Indicator value={limit} color={theme.indicator.white} />
       <Indicator value={soc} color={color}  />
     </ArcGauge>
