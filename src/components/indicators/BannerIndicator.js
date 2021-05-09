@@ -6,7 +6,7 @@ export default function BannerIndicator(props) {
   const { text, color, visible } = props
   return (
     <FadeableGroup className='BannerMultiIndicator' visible={visible}>
-      <rect x={-36} y={-4} width={72} height={11} fill={color} />
+      <rect x={-42} y={-6} width={84} height={15} fill={color} />
       <TextIndicator y={2}>{text}</TextIndicator>
     </FadeableGroup>
   )
@@ -15,7 +15,7 @@ export default function BannerIndicator(props) {
 const TextIndicator = styled.text`
   font-family: 'Gotham Bold';
   fill: black;
-  font-size: 40%;
+  font-size: 50%;
   text-anchor: middle;
   dominant-baseline: middle;
 `

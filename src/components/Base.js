@@ -21,7 +21,7 @@ export const BaseTextUnits = styled.text`
 `
 
 export const HeroTextValue = styled(BaseTextValue)`
-  font-size: 120%;
+  font-size: 150%;
   text-anchor: middle;
 `
 
@@ -32,7 +32,7 @@ export const HeroTextUnits = styled(BaseTextUnits)`
 `
 
 export const PrimaryTextValue = styled(BaseTextValue)`
-  font-size: 80%;
+  font-size: 100%;
   text-anchor: middle;
 `
 
