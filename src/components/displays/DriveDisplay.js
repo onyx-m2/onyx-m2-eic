@@ -1,6 +1,6 @@
 import { useSignalState } from 'onyx-m2-react'
 import React from 'react'
-import { HeroTextUnits, HeroTextValue, SecondaryTextIndicator, SecondaryTextValue, TextUnits } from '../Base'
+import { HeroTextUnits, HeroTextValue, SecondaryTextIndicator } from '../Base'
 import LaneKeepingIndicator from '../indicators/LaneKeepingIndicator'
 import DriveBannerIndicator from '../indicators/DriveBannerIndicator'
 

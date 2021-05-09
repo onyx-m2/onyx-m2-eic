@@ -6,6 +6,9 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import dbcFile from '!!raw-loader!./assets/tesla_model3.dbc';
+
 const dbcUrl = process.env.REACT_APP_CONFIG_DBCURL || 'https://raw.githubusercontent.com/onyx-m2/dbc/master/tesla_model3.dbc'
 
 const params = new URLSearchParams(window.location.search)
@@ -61,8 +64,8 @@ async function init() {
     )
   }
 
-  console.log(`Loading DBC from url "${dbcUrl}"`)
-  const { data: dbcFile } = await axios(dbcUrl)
+  //console.log(`Loading DBC from url "${dbcUrl}"`)
+  //const { data: dbcFile } = await axios(dbcUrl)
   ReactDOM.render(
     <React.StrictMode>
       <M2Provider config={{ ble, server, pin, secure }} dbcFile={dbcFile}>
