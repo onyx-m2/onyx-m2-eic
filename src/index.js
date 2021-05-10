@@ -92,14 +92,5 @@ serviceWorker.register({
       registration.waiting.postMessage({ type: 'SKIP_WAITING' })
     }
     window.location.reload()
-  },
-
-  // once we're all set, periodically check whether there is an update
-  // available
-  onSuccess: registration => {
-    console.info('Service worker installed, starting to poll for updates')
-    setInterval(async () => {
-      await registration.update()
-    }, 60 * 1000)
   }
 })
