@@ -83,10 +83,23 @@ init()
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register({
+
+  // when an update is available, skip the waiting period and just apply
+  // immediately
   onUpdate: registration => {
+    console.info('Received update, applying now')
     if (registration && registration.waiting) {
       registration.waiting.postMessage({ type: 'SKIP_WAITING' })
     }
     window.location.reload()
+  },
+
+  // once we're all set, periodically check whether there is an update
+  // available
+  onSuccess: registration => {
+    console.info('Service worker installed, starting to poll for updates')
+    setInterval(async () => {
+      await registration.update()
+    }, 60 * 1000)
   }
 })
