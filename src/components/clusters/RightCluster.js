@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 //import LinearGauge, { Range, Marker } from './LinearGauge'
 import { ThemeContext } from 'styled-components'
 import { useSignalState } from 'onyx-m2-react'
-import { PrimaryTextValue, SecondaryTextIndicator, TextUnits } from '../Base'
+import { PrimaryTextValue, SecondaryHorizontalTextIndicator, TextUnits } from '../Base'
 import ArcGauge, { Indicator } from '../gauges/ArcGauge'
 
 /**
@@ -51,16 +51,18 @@ export default function RightCluster() {
       <BatteryLevelGauge soc={usableSOC} limit={chargingLimit} />
 
       {/* secondary displays */}
-      <path fill='none' stroke={theme.indicator.white} strokeWidth={0.2}
+      {/* <path fill='none' stroke={theme.indicator.white} strokeWidth={0.2}
         d={`
           M ${left + 10} ${5}
           H ${right}
           M ${70} ${8}
           V 24
         `}
-        />
-      <SecondaryTextIndicator x={60} y={17} value={consumptionText} units='wh/km' />
-      <SecondaryTextIndicator x={80} y={17} value={temperatureText} units='deg' />
+        /> */}
+      {/* <SecondaryTextIndicator x={60} y={17} value={consumptionText} units='wh/km' />
+      <SecondaryTextIndicator x={80} y={17} value={temperatureText} units='deg' /> */}
+      <SecondaryHorizontalTextIndicator x={70} y={12} value={consumptionText} units='wh/km' />
+      <SecondaryHorizontalTextIndicator x={65} y={24} value={temperatureText} units='deg' />
     </g>
 
   )

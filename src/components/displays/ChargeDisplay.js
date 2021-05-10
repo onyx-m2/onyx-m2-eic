@@ -1,6 +1,6 @@
 import { useNamedValuesSignalState, useSignalState } from 'onyx-m2-react'
 import React from 'react'
-import { HeroTextUnits, HeroTextValue, SecondaryTextIndicator } from '../Base'
+import { HeroTextUnits, HeroTextValue, SecondaryHorizontalTextIndicator } from '../Base'
 import BannerIndicator from '../indicators/BannerIndicator'
 
 /**
@@ -73,9 +73,9 @@ export default function ChargeDisplay() {
           M ${9} ${16}
           V 30
       `}/>
-      <SecondaryTextIndicator x={-19} y={23} value={lineVoltage} units='volts' />
-      <SecondaryTextIndicator x={0} y={23} value={chargeTime} units={chargeTimeUnits} />
-      <SecondaryTextIndicator x={19} y={23} value={pilotCurrent} units='amps' />
+      <SecondaryHorizontalTextIndicator x={-19} y={23} value={lineVoltage} units='volts' />
+      <SecondaryHorizontalTextIndicator x={0} y={23} value={chargeTime} units={chargeTimeUnits} />
+      <SecondaryHorizontalTextIndicator x={19} y={23} value={pilotCurrent} units='amps' />
     </g>
   )
 }

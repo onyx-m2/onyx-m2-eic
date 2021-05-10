@@ -42,7 +42,7 @@ export default function DriveDisplay() {
       <LaneKeepingIndicator />
       <DriveBannerIndicator />
 
-      <path fill='none' stroke='white' strokeWidth={0.2} d={`
+      {/* <path fill='none' stroke='white' strokeWidth={0.2} d={`
           M ${-40} ${17}
           H ${40}
           M ${-12} ${20}
@@ -50,10 +50,15 @@ export default function DriveDisplay() {
           M ${12} ${20}
           V 34
       `}/>
+ */}
+      {/* <path fill='none' stroke='white' strokeWidth={0.2} d={`
+          M ${-40} ${17}
+          H ${40}
+      `}/> */}
 
-      <SecondaryTextIndicator x={-22} y={27} value={regenPowerLimit} units='regen' />
-      <SecondaryTextIndicator x={0} y={27} value={auxPower.toFixed(1)} units='aux' />
-      <SecondaryTextIndicator x={22} y={27} value={drivePowerLimit} units='drive' />
+      <SecondaryTextIndicator x={-25} y={23} value={regenPowerLimit} units='regen' />
+      <SecondaryTextIndicator x={0} y={23} value={auxPower.toFixed(1)} units='aux' />
+      <SecondaryTextIndicator x={25} y={23} value={drivePowerLimit} units='drive' />
     </g>
   )
 }

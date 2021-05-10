@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
 import { useSignalState } from 'onyx-m2-react';
-import { PrimaryTextValue, SecondaryTextIndicator, TextUnits } from '../Base';
+import { PrimaryTextValue, SecondaryHorizontalTextIndicator, TextUnits } from '../Base';
 import ArcGauge, { Indicator } from '../gauges/ArcGauge';
 
 const WITHIN_SPEED_LIMIT = 0
@@ -89,16 +89,18 @@ export default function LeftCluster() {
       <SpeedGauge speed={speed} limit={limit} />
 
       {/* secondary displays */}
-      <path className='Separators' fill='none' stroke='white' strokeWidth={0.2}
+      {/* <path className='Separators' fill='none' stroke='white' strokeWidth={0.2}
         d={`
           M ${-left - 10} ${5}
           H ${-right}
-          M ${-70} ${8}
+          M ${-71} ${8}
           V 24
         `}
         />
-      <SecondaryTextIndicator x={-80} y={17} value={limitText} units='max' />
-      <SecondaryTextIndicator x={-60} y={17} value={rangeText} units='km' />
+      <SecondaryTextIndicator x={-74} y={17} value={limitText} units='max' anchor='end' />
+      <SecondaryTextIndicator x={-68} y={17} value={rangeText} units='km' anchor='start' /> */}
+      <SecondaryHorizontalTextIndicator x={-70} y={12} value={limitText} units='max' />
+      <SecondaryHorizontalTextIndicator x={-65} y={24} value={rangeText} units='km' />
     </g>
   )
 }

@@ -38,21 +38,31 @@ export const PrimaryTextValue = styled(BaseTextValue)`
 
 export const TextUnits = styled(BaseTextUnits)`
   font-size: 25%;
-  text-anchor: middle;
-  dominant-baseline: hanging;
+  text-anchor: ${props => props.anchor || 'middle'};
+  dominant-baseline: ${props => props.baseline || 'hanging'};
 `
 
 export const SecondaryTextValue = styled(BaseTextValue)`
   font-size: 50%;
-  text-anchor: middle;
+  text-anchor: ${props => props.anchor || 'middle'};
 `
 
 export function SecondaryTextIndicator(props) {
+  const { x, y, value, units, anchor } = props
+  return (
+    <g>
+      <SecondaryTextValue x={x} y={y} anchor={anchor}>{value}</SecondaryTextValue>
+      <TextUnits x={x} y={y + 2} anchor={anchor}>{units}</TextUnits>
+    </g>
+  )
+}
+
+export function SecondaryHorizontalTextIndicator(props) {
   const { x, y, value, units } = props
   return (
     <g>
-      <SecondaryTextValue x={x} y={y}>{value}</SecondaryTextValue>
-      <TextUnits x={x} y={y + 2}>{units}</TextUnits>
+      <SecondaryTextValue x={x} y={y} anchor='end'>{value}</SecondaryTextValue>
+      <TextUnits x={x + 2} y={y} anchor='start' baseline='inherit'>{units}</TextUnits>
     </g>
   )
 }
