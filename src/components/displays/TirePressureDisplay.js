@@ -4,7 +4,7 @@ import SecondaryDisplay from './SecondaryDisplay'
 
 export default function TirePressureDisplay(props) {
   return (
-    <SecondaryDisplay name='TIRE PRESSURE'>
+    <SecondaryDisplay name='PRESSURES'>
       <ChassisPaperDoll units='psi' scale={14.5038}
         fl='TPMS_pressureFL'
         fr='TPMS_pressureFR'

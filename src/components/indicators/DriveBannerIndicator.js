@@ -17,7 +17,7 @@ export default function DriveBannerIndicator() {
   // determine if ap is active, and if so, in what state the hands on detection is
   // (no longer indicating if autopilot is available)
   var autopilot = false
-  var autopilotColor = theme.indicator.grey
+  var autopilotColor = theme.color.muted
   if (autopilotState === autopilotStates.ACTIVE_NOMINAL) {
     autopilot = true
     switch (handsOnState) {

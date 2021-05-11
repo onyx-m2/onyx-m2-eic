@@ -4,7 +4,7 @@ import SecondaryDisplay from './SecondaryDisplay'
 
 export default function BrakeTemperatureDisplay(props) {
   return (
-    <SecondaryDisplay name='BRAKE TEMPS'>
+    <SecondaryDisplay name='BRAKES'>
       <ChassisPaperDoll units='deg' scale={1}
         fl='DI_brakeFLTemp'
         fr='DI_brakeFRTemp'

@@ -1,6 +1,7 @@
 import { useNamedValuesSignalState, useSignalState } from 'onyx-m2-react'
-import React from 'react'
-import { HeroTextUnits, HeroTextValue, SecondaryHorizontalTextIndicator } from '../Base'
+import React, { useContext } from 'react'
+import { ThemeContext } from 'styled-components'
+import { HeroTextUnits, HeroTextValue, SecondaryTextIndicator } from '../Base'
 import BannerIndicator from '../indicators/BannerIndicator'
 
 /**
@@ -12,6 +13,9 @@ import BannerIndicator from '../indicators/BannerIndicator'
  * @returns
  */
 export default function ChargeDisplay() {
+  const theme = useContext(ThemeContext)
+  const { center: { indicators : { primary, secondary }}} = theme.geometry
+
   const [ state, states ] = useNamedValuesSignalState('BMS_uiChargeStatus', 'DISCONNECTED')
   const chargeHoursRemaining = useSignalState('BMS_chgTimeToFull', 0)
   const energyToChargeComplete = useSignalState('BMS_energyToChargeComplete', 0)
@@ -60,22 +64,29 @@ export default function ChargeDisplay() {
 
   return (
     <g className='ChargeDisplay'>
-      <HeroTextValue y={-16}>{chargePower.toFixed(precision)}</HeroTextValue>
-      <HeroTextUnits y={-13}>kw</HeroTextUnits>
+      <HeroTextValue y={primary.value}>{chargePower.toFixed(precision)}</HeroTextValue>
+      <HeroTextUnits y={primary.caption}>kw</HeroTextUnits>
 
       <BannerIndicator visible={true} text={chargingText} color={chargingColor}/>
 
-      <path fill='none' stroke='white' strokeWidth={0.2} d={`
-          M ${-32} ${13}
-          H ${32}
-          M ${-9} ${16}
-          V 30
-          M ${9} ${16}
-          V 30
-      `}/>
-      <SecondaryHorizontalTextIndicator x={-19} y={23} value={lineVoltage} units='volts' />
-      <SecondaryHorizontalTextIndicator x={0} y={23} value={chargeTime} units={chargeTimeUnits} />
-      <SecondaryHorizontalTextIndicator x={19} y={23} value={pilotCurrent} units='amps' />
+      <SecondaryTextIndicator
+        x={secondary.left}
+        y={secondary.vertical}
+        value={lineVoltage}
+        units='volts'
+      />
+      <SecondaryTextIndicator
+        x={secondary.middle}
+        y={secondary.vertical}
+        value={chargeTime}
+        units={chargeTimeUnits}
+      />
+      <SecondaryTextIndicator
+        x={secondary.right}
+        y={secondary.vertical}
+        value={pilotCurrent}
+        units='amps'
+      />
     </g>
   )
 }

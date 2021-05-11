@@ -10,6 +10,7 @@ const HEIGHT = 100
 
 export function SvgDefs() {
   const theme = useContext(ThemeContext)
+  const { BLACK, BLUE, RED, YELLOW, ORANGE } = theme.colors
   return (
     <defs>
       <pattern id="slash-pattern" width="2" height="2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -19,33 +20,33 @@ export function SvgDefs() {
         <rect width="1" height="2" transform="translate(0,0)" fill="grey"></rect>
       </pattern>
       <radialGradient id="ball-gradient">
-        <stop offset="0%" stopColor={theme.indicator.blue}/>
-        <stop offset="100%" stopColor='black'/>
+        <stop offset="0%" stopColor={BLUE}/>
+        <stop offset="100%" stopColor={BLACK}/>
       </radialGradient>
       <linearGradient id="blue-indicator-gradient">
-        <stop offset="0%" stopColor='black'/>
-        <stop offset="50%" stopColor={theme.indicator.blue}/>
-        <stop offset="100%" stopColor='black'/>
+        <stop offset="0%" stopColor={BLACK}/>
+        <stop offset="50%" stopColor={BLUE}/>
+        <stop offset="100%" stopColor={BLACK}/>
       </linearGradient>
       <linearGradient id="red-indicator-gradient">
-        <stop offset="0%" stopColor='black'/>
-        <stop offset="50%" stopColor={theme.indicator.red}/>
-        <stop offset="100%" stopColor='black'/>
+        <stop offset="0%" stopColor={BLACK}/>
+        <stop offset="50%" stopColor={RED}/>
+        <stop offset="100%" stopColor={BLACK}/>
       </linearGradient>
       <linearGradient id="yellow-indicator-gradient">
-        <stop offset="0%" stopColor='black'/>
-        <stop offset="50%" stopColor={theme.indicator.yellow}/>
-        <stop offset="100%" stopColor='black'/>
+        <stop offset="0%" stopColor={BLACK}/>
+        <stop offset="50%" stopColor={YELLOW}/>
+        <stop offset="100%" stopColor={BLACK}/>
       </linearGradient>
       <linearGradient id="orange-indicator-gradient">
-        <stop offset="0%" stopColor='black'/>
-        <stop offset="50%" stopColor={theme.indicator.orange}/>
-        <stop offset="100%" stopColor='black'/>
+        <stop offset="0%" stopColor={BLACK}/>
+        <stop offset="50%" stopColor={ORANGE}/>
+        <stop offset="100%" stopColor={BLACK}/>
       </linearGradient>
       <clipPath id='center-cluster-clip'>
         <path d={`
-          M -22 40
-          A 46, 46 0 1 1 22, 40
+          M -24 40
+          A 46, 46 0 1 1 24, 40
           Z
         `}
         />
@@ -71,4 +72,5 @@ const Svg = styled.svg`
   top: 0;
   width: 100vw;
   height: 100vh;
+  background: ${props => props.theme.color.background};
 `

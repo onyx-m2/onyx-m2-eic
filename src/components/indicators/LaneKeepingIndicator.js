@@ -7,10 +7,9 @@ import LinearGauge from '../gauges/LinearGauge'
  * Indicates how centered the car is in its lane. if a lane is detected by the
  * autopilot computer.
  *
- * @param {*} props
  * @returns
  */
-export default function LaneKeepingIndicator(props) {
+export default function LaneKeepingIndicator() {
   const theme = useContext(ThemeContext)
 
   const carWidth = 1.85 // m
@@ -28,7 +27,7 @@ export default function LaneKeepingIndicator(props) {
   // 100% : left or right side of the car is touching the lane markers
   const movementSpaceInLane = (laneWidth - carWidth) / 2
   const deviationPct = -distanceFromLaneCenter / movementSpaceInLane
-  const indicatorColor = Math.abs(deviationPct) < 100 ? theme.indicator.blue : theme.indicator.red
+  const indicatorColor = Math.abs(deviationPct) < 100 ? theme.color.primary : theme.colors.RED
 
   return (
     <LinearGauge className='LaneKeepingIndicator'

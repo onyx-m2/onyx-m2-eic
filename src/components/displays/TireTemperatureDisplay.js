@@ -4,7 +4,7 @@ import SecondaryDisplay from './SecondaryDisplay'
 
 export default function TireTemperatureDisplay(props) {
   return (
-    <SecondaryDisplay name='TIRE TEMPS'>
+    <SecondaryDisplay name='TIRES'>
       <ChassisPaperDoll units='deg' scale={1}
         fl='TPMS_temperatureFL'
         fr='TPMS_temperatureFR'
@@ -12,6 +12,5 @@ export default function TireTemperatureDisplay(props) {
         rr='TPMS_temperatureRR'
       />
     </SecondaryDisplay>
-
   )
 }

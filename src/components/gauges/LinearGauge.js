@@ -12,7 +12,7 @@ export default function LinearGauge(props) {
   const interval = length / (to - from)
   return (
     <FadeableGroup visible={visible}>
-      <Range from={from} to={to} min={from} max={to} offset={0} interval={interval} color={'white'} />
+      <Range from={from} to={to} min={from} max={to} offset={0} interval={interval} />
       <Marker min={from} max={to} value={value} color={color} offset={0} interval={interval}  />
     </FadeableGroup>
   )
@@ -47,10 +47,10 @@ export function Range(props) {
   }
 
   return (
-    <path fill='none' stroke={theme.scale.white} strokeWidth={1}
+    <path fill='none' stroke={theme.color.primary} strokeWidth={1}
       d={`
-        M -21 4
-        H 21
+        M -27 4
+        H 27
         M 0 -2
         V 4
       `}

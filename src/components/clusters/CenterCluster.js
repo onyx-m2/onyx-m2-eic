@@ -48,37 +48,38 @@ export default function CenterCluster() {
       {/* Power Ring */}
       <RingGauge className='PowerRing' bottom={dialBottom} width={dialWidth} radius={dialRadius}>
         <Section className='Regen' from={31} to={0} direction={-1} tickGap={0.012}>
-          <Indicator value={mappedRegenPowerLimit} color={theme.indicator.white} />
-          <Indicator value={mappedRegenPower} color={theme.indicator.blue} />
+          <Indicator value={mappedRegenPowerLimit} color={theme.color.primary} />
+          <Indicator value={mappedRegenPower} color={theme.color.highlight} />
         </Section>
         <Section className='Drive' from={34} to={100} direction={1} tickGap={0.0055}>
-          <Indicator value={mappedDrivePowerLimit} color={theme.indicator.white} />
-          <Indicator value={mappedDrivePower} color={theme.indicator.blue} />
+          <Indicator value={mappedDrivePowerLimit} color={theme.color.primary} />
+          <Indicator value={mappedDrivePower} color={theme.color.highlight} />
         </Section>
       </RingGauge>
 
       {/* Dial */}
-      <path id='centerClusterDial' className='Dial' strokeLinecap='round' strokeWidth={ringWidth} stroke={theme.indicator.white} fill='none'
-      d={`
-        M -24 40
-        A ${ringRadius}, ${ringRadius} 0 1 1 24, 40
-        Z
-      `}
+      <path id='centerClusterDial' className='Dial'
+        strokeLinecap='round'
+        strokeWidth={ringWidth}
+        stroke={theme.color.primary}
+        fill='none'
+        d={`
+          M -24 40
+          A ${ringRadius}, ${ringRadius} 0 1 1 24, 40
+          Z
+        `}
       />
 
       {/* Needle */}
-      <line transform={`rotate(${-139.8})`} stroke={theme.indicator.white} strokeWidth={ringWidth} fill='none'
-            x1={ringRadius} x2={ringRadius + needleLength} y1='0' y2='0'/>
-
-      {/* <Needle transform={`rotate(${needleAngle})`} stroke={theme.indicator.white} strokeWidth={ringWidth} fill='none'
-            x1={ringRadius} x2={ringRadius + needleLength} y1='0' y2='0'/> */}
+      <line transform={`rotate(${-139.8})`}
+        stroke={theme.color.primary}
+        strokeWidth={ringWidth}
+        fill='none'
+        x1={ringRadius} x2={ringRadius + needleLength}
+        y1='0' y2='0'
+      />
 
       <DisplaySelector />
     </g>
   )
 }
-
-// const Needle = styled.line`
-//   transition: all 0.3s ease;
-// `
-

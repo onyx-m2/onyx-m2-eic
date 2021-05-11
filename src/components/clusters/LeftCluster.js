@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
-import { useSignalState } from 'onyx-m2-react';
-import { PrimaryTextValue, SecondaryHorizontalTextIndicator, TextUnits } from '../Base';
-import ArcGauge, { Indicator } from '../gauges/ArcGauge';
+import { useSignalState } from 'onyx-m2-react'
+import { PrimaryTextValue, SecondaryHorizontalTextIndicator, TextUnits } from '../Base'
+import ArcGauge, { Indicator } from '../gauges/ArcGauge'
 
 const WITHIN_SPEED_LIMIT = 0
 const OVER_SPEED_LIMIT = 1
@@ -71,49 +71,65 @@ export default function LeftCluster() {
   const expectedRange = useSignalState('UI_expectedRange', -1)
   const rangeText = (expectedRange !== -1) ? expectedRange.toFixed(0) : '-'
 
-  const { left, right, height, radius } = theme.panel
+  const { outline, indicators } = theme.geometry.side
   return (
     <g className='LeftCluster'>
-      <path className='Outline' fill='none' stroke={theme.indicator.white} strokeWidth={1} strokeLinejoin={'round'}
+      <path className='Outline'
+        fill='none'
+        stroke={theme.color.primary}
+        strokeWidth={1}
+        strokeLinejoin={'round'}
         d={`
-          M ${-left} ${-height / 2}
-          H ${-right}
-          A ${-radius}, ${-radius} 0 0 0 ${-right}, ${height / 2}
-          H ${-left}
+          M ${-outline.left} ${-outline.height / 2}
+          H ${-outline.right}
+          A ${-outline.radius}, ${-outline.radius} 0 0 0 ${-outline.right}, ${outline.height / 2}
+          H ${-outline.left}
         `}
         />
 
       {/* speed indicator */}
-      <PrimaryTextValue x={-70} y={-10}>{speedText}</PrimaryTextValue>
-      <TextUnits x={-70} y={-7}>km/h</TextUnits>
+      <PrimaryTextValue
+        x={-indicators.primary.horizontal}
+        y={indicators.primary.value}
+      >
+        {speedText}
+      </PrimaryTextValue>
+
+      <TextUnits
+        x={-indicators.primary.horizontal}
+        y={indicators.primary.caption}
+      >
+        km/h
+      </TextUnits>
+
       <SpeedGauge speed={speed} limit={limit} />
 
-      {/* secondary displays */}
-      {/* <path className='Separators' fill='none' stroke='white' strokeWidth={0.2}
-        d={`
-          M ${-left - 10} ${5}
-          H ${-right}
-          M ${-71} ${8}
-          V 24
-        `}
-        />
-      <SecondaryTextIndicator x={-74} y={17} value={limitText} units='max' anchor='end' />
-      <SecondaryTextIndicator x={-68} y={17} value={rangeText} units='km' anchor='start' /> */}
-      <SecondaryHorizontalTextIndicator x={-70} y={12} value={limitText} units='max' />
-      <SecondaryHorizontalTextIndicator x={-65} y={24} value={rangeText} units='km' />
+      {/* secondary indicators */}
+      <SecondaryHorizontalTextIndicator
+        x={-indicators.secondary.top.x}
+        y={indicators.secondary.top.y}
+        value={limitText}
+        units='max'
+      />
+      <SecondaryHorizontalTextIndicator
+        x={-indicators.secondary.bottom.x}
+        y={indicators.secondary.bottom.y}
+        value={rangeText}
+        units='km'
+      />
     </g>
   )
 }
 
 function SpeedGauge(props) {
   const theme = useContext(ThemeContext)
-  const { height } = theme.panel
-  const { yellow, orange, red, blue, white } = theme.indicator
+  const { height, radius, width } = theme.geometry.side.gauge
+  const { color: { primary, highlight }, colors } = theme
   const { speed, limit } = props
 
   if (speed === -1 || limit === 0) {
     return (
-      <ArcGauge height={height + 3} width={3} radius={-96} />
+      <ArcGauge height={height} width={width} radius={-radius} />
     )
   }
 
@@ -126,21 +142,21 @@ function SpeedGauge(props) {
   let indicatorColor
   switch (speedLimitStatus(speed, limit)) {
     case OVER_SPEED_LIMIT:
-      indicatorColor = yellow
+      indicatorColor = colors.YELLOW
       break
     case SPEEDING_OFFENSE:
-      indicatorColor = orange
+      indicatorColor = colors.ORANGE
       break
     case EXCESSIVE_SPEEDING_OFFENSE:
-      indicatorColor = red
+      indicatorColor = colors.RED
       break
     default:
-      indicatorColor = blue
+      indicatorColor = highlight
   }
 
   return (
-    <ArcGauge height={height + 3} width={3} radius={-96}>
-      <Indicator value={mappedLimit} color={white} />
+    <ArcGauge height={height} width={width} radius={-radius}>
+      <Indicator value={mappedLimit} color={primary} />
       <Indicator value={mappedSpeed} color={indicatorColor}  />
     </ArcGauge>
   )

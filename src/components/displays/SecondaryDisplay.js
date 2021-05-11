@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { BannerText } from '../Base'
 
 export default function SecondaryDisplay(props) {
   const { name, children } = props
@@ -7,20 +8,12 @@ export default function SecondaryDisplay(props) {
     <g className='SecondaryDisplay'>
       { children }
       <BannerRect x='-56' y='28' width='100' height='12' />
-      <NameText y='34'>{name}</NameText>
+      <BannerText y='34'>{name}</BannerText>
     </g>
   )
 }
 
 const BannerRect = styled.rect`
   clip-path: url(#center-cluster-clip);
-  fill: ${props => props.theme.indicator.white};
-`
-
-const NameText = styled.text`
-  font-family: 'Gotham Bold';
-  fill: black;
-  font-size: 34%;
-  text-anchor: middle;
-  dominant-baseline: middle;
+  fill: ${props => props.theme.color.primary};
 `

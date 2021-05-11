@@ -1,8 +1,9 @@
 import { useSignalState } from 'onyx-m2-react'
-import React from 'react'
+import React, { useContext } from 'react'
 import { HeroTextUnits, HeroTextValue, SecondaryTextIndicator } from '../Base'
 import LaneKeepingIndicator from '../indicators/LaneKeepingIndicator'
 import DriveBannerIndicator from '../indicators/DriveBannerIndicator'
+import { ThemeContext } from 'styled-components'
 
 const REGEN_POWER_SNA = 155
 const DRIVE_POWER_SNA = 511
@@ -13,6 +14,8 @@ const DRIVE_POWER_SNA = 511
  * @returns
  */
 export default function DriveDisplay() {
+  const theme = useContext(ThemeContext)
+  const { center: { indicators : { primary, secondary }}} = theme.geometry
 
   // current power going from/to the inverter
   const elecPower = useSignalState('DI_elecPower', 0)
@@ -36,29 +39,30 @@ export default function DriveDisplay() {
 
   return (
     <g className='DriveDisplay'>
-      <HeroTextValue y={-20}>{Math.abs(elecPower).toFixed(0)}</HeroTextValue>
-      <HeroTextUnits y={-17}>kw</HeroTextUnits>
+      <HeroTextValue y={primary.value}>{Math.abs(elecPower).toFixed(0)}</HeroTextValue>
+      <HeroTextUnits y={primary.caption}>kw</HeroTextUnits>
 
       <LaneKeepingIndicator />
       <DriveBannerIndicator />
 
-      {/* <path fill='none' stroke='white' strokeWidth={0.2} d={`
-          M ${-40} ${17}
-          H ${40}
-          M ${-12} ${20}
-          V 34
-          M ${12} ${20}
-          V 34
-      `}/>
- */}
-      {/* <path fill='none' stroke='white' strokeWidth={0.2} d={`
-          M ${-40} ${17}
-          H ${40}
-      `}/> */}
-
-      <SecondaryTextIndicator x={-25} y={23} value={regenPowerLimit} units='regen' />
-      <SecondaryTextIndicator x={0} y={23} value={auxPower.toFixed(1)} units='aux' />
-      <SecondaryTextIndicator x={25} y={23} value={drivePowerLimit} units='drive' />
+      <SecondaryTextIndicator
+        x={secondary.left}
+        y={secondary.vertical}
+        value={regenPowerLimit}
+        units='regen'
+      />
+      <SecondaryTextIndicator
+        x={secondary.middle}
+        y={secondary.vertical}
+        value={auxPower.toFixed(1)}
+        units='aux'
+      />
+      <SecondaryTextIndicator
+        x={secondary.right}
+        y={secondary.vertical}
+        value={drivePowerLimit}
+        units='drive'
+      />
     </g>
   )
 }

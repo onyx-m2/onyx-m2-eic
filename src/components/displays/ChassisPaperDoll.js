@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
 import { useSignalState } from 'onyx-m2-react'
 import { ReactComponent as ChassisIcon} from '../../assets/chassis.svg'
-import { SecondaryHorizontalTextIndicator } from '../Base'
+import { SecondaryHorizontalTextIndicator, SecondaryTextIndicator } from '../Base'
 
 /**
  * A component that displays a paper doll of the chassis, and allows values to be
@@ -26,11 +26,11 @@ export default function ChassisPaperDoll(props) {
   const vertValueOffset = 14
   return (
     <g className='ChassisPaperDoll'>
-      <ChassisIcon x={-14} y={-49 + vertOffset} width={28} fill={theme.indicator.blue} />
-      <SecondaryHorizontalTextIndicator x={-horzValueOffset} y={-vertValueOffset + vertOffset} value={fl} units={units} />
-      <SecondaryHorizontalTextIndicator x={horzValueOffset} y={-vertValueOffset + vertOffset} value={fr} units={units} />
-      <SecondaryHorizontalTextIndicator x={-horzValueOffset} y={vertValueOffset + vertOffset} value={rl} units={units} />
-      <SecondaryHorizontalTextIndicator x={horzValueOffset} y={vertValueOffset + vertOffset} value={rr} units={units} />
+      <ChassisIcon x={-14} y={-49 + vertOffset} width={28} fill={theme.color.highlight} />
+      <SecondaryTextIndicator x={-horzValueOffset} y={-vertValueOffset + vertOffset} value={fl} units={units} />
+      <SecondaryTextIndicator x={horzValueOffset} y={-vertValueOffset + vertOffset} value={fr} units={units} />
+      <SecondaryTextIndicator x={-horzValueOffset} y={vertValueOffset + vertOffset} value={rl} units={units} />
+      <SecondaryTextIndicator x={horzValueOffset} y={vertValueOffset + vertOffset} value={rr} units={units} />
     </g>
   )
 }

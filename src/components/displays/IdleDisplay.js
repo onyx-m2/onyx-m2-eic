@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ThemeContext } from 'styled-components'
 
 /**
  * Display component that is automatically shown when the car is idle (i.e. the drive
@@ -8,10 +9,15 @@ import React from 'react'
  * @returns
  */
 export default function IdleDisplay() {
+  const theme = useContext(ThemeContext)
   return (
     <g className='IdleDisplay'>
       <circle r='38' fill='url(#ball-gradient)' />
-      <text y='0' fontFamily='Gotham Bold' textAnchor='middle' dominantBaseline='middle'>
+      <text
+        fontFamily={theme.font.family.bold}
+        textAnchor='middle'
+        dominantBaseline='middle'
+      >
         ONYX
       </text>
     </g>

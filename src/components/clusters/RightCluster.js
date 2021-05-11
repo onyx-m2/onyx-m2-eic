@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-//import LinearGauge, { Range, Marker } from './LinearGauge'
 import { ThemeContext } from 'styled-components'
 import { useSignalState } from 'onyx-m2-react'
 import { PrimaryTextValue, SecondaryHorizontalTextIndicator, TextUnits } from '../Base'
@@ -33,36 +32,54 @@ export default function RightCluster() {
   const usableSOC = useSignalState('UI_usableSOC', -1)
   const socText = (usableSOC !== -1) ? usableSOC : '-'
 
-  const { left, right, height, radius } = theme.panel
+  const { outline, indicators } = theme.geometry.side
+
   return (
     <g className='RightCluster'>
-      <path fill='none' stroke={theme.indicator.white} strokeWidth={1} strokeLinejoin={'round'}
+
+      <path className='Outline'
+        fill='none'
+        stroke={theme.color.primary}
+        strokeWidth={1}
+        strokeLinejoin={'round'}
         d={`
-          M ${left} ${-height / 2}
-          H ${right}
-          A ${radius}, ${radius} 0 0 1 ${right}, ${height / 2}
-          H ${left}
+          M ${outline.left} ${-outline.height / 2}
+          H ${outline.right}
+          A ${outline.radius}, ${outline.radius} 0 0 1 ${outline.right}, ${outline.height / 2}
+          H ${outline.left}
         `}
         />
 
       {/* battery percentage */}
-      <PrimaryTextValue x={70} y={-10}>{socText}</PrimaryTextValue>
-      <TextUnits x={70} y={-7}>percent</TextUnits>
+      <PrimaryTextValue
+        x={indicators.primary.horizontal}
+        y={indicators.primary.value}
+      >
+        {socText}
+      </PrimaryTextValue>
+
+      <TextUnits
+        x={indicators.primary.horizontal}
+        y={indicators.primary.caption}
+      >
+        percent
+      </TextUnits>
+
       <BatteryLevelGauge soc={usableSOC} limit={chargingLimit} />
 
-      {/* secondary displays */}
-      {/* <path fill='none' stroke={theme.indicator.white} strokeWidth={0.2}
-        d={`
-          M ${left + 10} ${5}
-          H ${right}
-          M ${70} ${8}
-          V 24
-        `}
-        /> */}
-      {/* <SecondaryTextIndicator x={60} y={17} value={consumptionText} units='wh/km' />
-      <SecondaryTextIndicator x={80} y={17} value={temperatureText} units='deg' /> */}
-      <SecondaryHorizontalTextIndicator x={70} y={12} value={consumptionText} units='wh/km' />
-      <SecondaryHorizontalTextIndicator x={65} y={24} value={temperatureText} units='deg' />
+      {/* secondary indicators */}
+      <SecondaryHorizontalTextIndicator
+        x={indicators.secondary.top.x}
+        y={indicators.secondary.top.y}
+        value={consumptionText}
+        units='wh/km'
+      />
+      <SecondaryHorizontalTextIndicator
+        x={indicators.secondary.bottom.x}
+        y={indicators.secondary.bottom.y}
+        value={temperatureText}
+        units='deg'
+      />
     </g>
 
   )
@@ -70,26 +87,27 @@ export default function RightCluster() {
 
 function BatteryLevelGauge(props) {
   const theme = useContext(ThemeContext)
-  const { height } = theme.panel
+  const { height, radius, width } = theme.geometry.side.gauge
+  const { color: { primary, highlight }, colors } = theme
   const { soc, limit } = props
 
   if (soc === -1) {
     return (
-      <ArcGauge height={height + 3} width={3} radius={96} />
+      <ArcGauge height={height} width={width} radius={radius} />
     )
   }
 
-  let color = theme.indicator.blue
+  let color = highlight
   if (soc < 10) {
-    color = theme.indicator.red
+    color = colors.RED
   }
   else if (soc < 20) {
-    color = theme.indicator.yellow
+    color = colors.YELLOW
   }
 
   return (
-    <ArcGauge height={height + 3} width={3} radius={96}>
-      <Indicator value={limit} color={theme.indicator.white} />
+    <ArcGauge height={height} width={width} radius={radius}>
+      <Indicator value={limit} color={primary} />
       <Indicator value={soc} color={color}  />
     </ArcGauge>
   )

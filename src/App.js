@@ -3,7 +3,7 @@ import { useHotkeys } from 'react-hotkeys-hook'
 import { ThemeProvider } from 'styled-components'
 import { useSignalHotkeySimulation, useSignalState } from 'onyx-m2-react'
 
-import { INSTRUMENTS_THEME } from './theme'
+import { NIGHT_THEME } from './theme'
 import RightCluster from './components/clusters/RightCluster'
 import LeftTurnIndicator from './components/indicators/LeftTurnIndicator'
 import RightTurnIndicator from './components/indicators/RightTurnIndicator'
@@ -32,7 +32,7 @@ import { LeftStatusTextValue, RightStatusTextValue } from './components/Base'
  * else is delegated to the left, center, and right cluster components.
  */
 export default function App(props) {
-  const theme = INSTRUMENTS_THEME
+  const theme = NIGHT_THEME
 
   const [ layoutGridVisible, setLayoutGridVisible ] = useState(false)
   useHotkeys('end', () => setLayoutGridVisible(visible => !visible))
@@ -44,14 +44,18 @@ export default function App(props) {
 
     // turn on the display
     'home': [
-      ['UI_displayOn', 1],
-      ['UI_usableSOC', 69]
+      ['UI_displayOn', 1]
     ],
 
     // set the car to "ready" state, (o)dometer on
     'o': [
       ['DI_odometer', 69420],
-      ['DI_gear', 'P'],
+      ['UI_usableSOC', 70],
+      ['BMS_thermistorTMin', 21],
+      ['BMS_thermistorTMax', 22],
+      ['DAS_fusedSpeedLimit', 100],
+      ['UI_expectedRange', 300],
+      ['UI_ratedConsumption', 137],
       ['DI_sysDrivePowerMax', 200],
       ['DI_sysRegenPowerMax', 30]
     ],
@@ -127,7 +131,10 @@ export default function App(props) {
         <LeftCluster />
         <CenterCluster />
         <RightCluster/>
-        <path className='Separator' strokeWidth='0.5' stroke={theme.indicator.white} fill='none'
+        <path className='Separator'
+          strokeWidth='0.5'
+          stroke={theme.color.primary}
+          fill='none'
           d='M -100 40
               h 56
               c 6 0, 6 5, 12 5
