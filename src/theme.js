@@ -63,9 +63,9 @@ const geometry = {
 }
 
 /**
- * Font definitions, there are two families (normal and bold) and 3 sizes corresponding
- * to the intended importance of the rendered text (hero, primary, secondary), and 2
- * caption sizes.
+ * Font definitions, there are two families (normal and bold) and 4 sizes corresponding
+ * to the intended importance of the rendered text (hero, primary, secondary, and
+ * status), and a caption size.
  */
 const font = {
   family: {
@@ -74,9 +74,9 @@ const font = {
   },
   size: {
     hero: '150%',
-    heroCaption: '35%',
     primary: '100%',
     secondary: '50%',
+    status: '35%',
     caption: '25%'
   }
 }

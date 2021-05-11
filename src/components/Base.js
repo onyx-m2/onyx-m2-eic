@@ -26,7 +26,7 @@ export const HeroTextValue = styled(BaseTextValue)`
 `
 
 export const HeroTextUnits = styled(BaseTextUnits)`
-  font-size: ${props => props.theme.font.size.heroCaption};
+  font-size: ${props => props.theme.font.size.status};
   text-anchor: middle;
   dominant-baseline: hanging;
 `
@@ -68,7 +68,7 @@ export function SecondaryHorizontalTextIndicator(props) {
 }
 
 export const StatusTextValue = styled(BaseTextValue)`
-  font-size: ${props => props.theme.font.size.secondary};
+  font-size: ${props => props.theme.font.size.status};
   fill: ${props => props.theme.color.muted};
 `
 
