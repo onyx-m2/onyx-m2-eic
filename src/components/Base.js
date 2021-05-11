@@ -69,6 +69,7 @@ export function SecondaryHorizontalTextIndicator(props) {
 
 export const StatusTextValue = styled(BaseTextValue)`
   font-size: ${props => props.theme.font.size.secondary};
+  fill: ${props => props.theme.color.muted};
 `
 
 export function LeftStatusTextValue(props) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useNamedValuesSignalState } from 'onyx-m2-react'
-import { FadeableGroup, StatusTextValue } from '../Base'
+import { FadeableGroup } from '../Base'
 
 export default function GearIndicator(props) {
   var [gear, values] = useNamedValuesSignalState('DI_gear', 'SNA')
@@ -19,8 +19,10 @@ export default function GearIndicator(props) {
   )
 }
 
-const GearTextValue = styled(StatusTextValue)`
-  font-family: ${props => props.selected ? 'Gotham Bold' : 'Gotham Extra Light'};
+const GearTextValue = styled.text`
+  font-family: ${props => props.selected ? props.theme.font.family.bold : props.theme.font.family.normal};
+  font-size: ${props => props.theme.font.size.secondary};
+  fill: ${props => props.theme.color.primary};
   text-anchor: middle;
   dominant-baseline: middle;
 `
