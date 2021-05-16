@@ -27,7 +27,7 @@ export default function LaneKeepingIndicator() {
   // 100% : left or right side of the car is touching the lane markers
   const movementSpaceInLane = (laneWidth - carWidth) / 2
   const deviationPct = -distanceFromLaneCenter / movementSpaceInLane
-  const indicatorColor = Math.abs(deviationPct) < 100 ? theme.color.primary : theme.colors.RED
+  const indicatorColor = Math.abs(deviationPct) < 100 ? theme.color.highlight : theme.colors.RED
 
   return (
     <LinearGauge className='LaneKeepingIndicator'
