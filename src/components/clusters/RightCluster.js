@@ -98,10 +98,10 @@ function BatteryLevelGauge(props) {
   }
 
   let color = highlight
-  if (soc < 10) {
+  if (soc <= 5) {
     color = colors.RED
   }
-  else if (soc < 20) {
+  else if (soc <= 20) {
     color = colors.YELLOW
   }
 
