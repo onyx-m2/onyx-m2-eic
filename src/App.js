@@ -3,7 +3,7 @@ import { useHotkeys } from 'react-hotkeys-hook'
 import { ThemeProvider } from 'styled-components'
 import { useSignalHotkeySimulation, useSignalState } from 'onyx-m2-react'
 
-import { NIGHT_THEME } from './theme'
+import { DAY_THEME, NIGHT_THEME } from './theme'
 import RightCluster from './components/clusters/RightCluster'
 import LeftTurnIndicator from './components/indicators/LeftTurnIndicator'
 import RightTurnIndicator from './components/indicators/RightTurnIndicator'
@@ -32,12 +32,13 @@ import { LeftStatusTextValue, RightStatusTextValue } from './components/Base'
  * else is delegated to the left, center, and right cluster components.
  */
 export default function App(props) {
-  const theme = NIGHT_THEME
+  const isSunUp = useSignalState('UI_isSunUp', true)
+  const theme = isSunUp ? DAY_THEME : NIGHT_THEME
 
   const [ layoutGridVisible, setLayoutGridVisible ] = useState(false)
   useHotkeys('end', () => setLayoutGridVisible(visible => !visible))
 
-  const displayOn = useSignalState('UI_displayOn', 0)
+  const displayOn = 1//useSignalState('UI_displayOn', 0)
   //const [ m2IsOnline ] = useStatusState({forceOnlineKey: 'pageup', forceOfflineKey: 'pagedown'})
 
   useSignalHotkeySimulation({

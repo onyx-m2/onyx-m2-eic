@@ -82,33 +82,35 @@ const font = {
 }
 
 /**
- * Night theme is the "super black" theme that looks great on an amoled screen.
+ * Day theme uses maximum contrast and brightness for better visibility in direct sunlight.
  */
-export const NIGHT_THEME = {
-  name: 'night',
+export const DAY_THEME = {
+  name: 'day',
   font,
   geometry,
   colors,
   color: {
     primary: colors.WHITE,
     highlight: colors.BLUE,
-    muted: colors.GREY,
+    muted: colors.WHITE,
     background: colors.BLACK
   }
 }
 
 /**
- * Day theme uses a white background for better visibility in direct sunlight.
+ * Night theme tones down the brightness so the display doesn't blind the driver in
+ * pitch black conditions. (The OLED display doesn't have a software brightness control,
+ * so lowering the "brightness" is done by making the primary colours darker.)
  */
- export const DAY_THEME = {
-  name: 'day',
+ export const NIGHT_THEME = {
+  name: 'night',
   font,
   geometry,
   colors,
   color: {
-    primary: colors.DARK_GREY,
+    primary: colors.GREY,
     highlight: colors.BLUE,
     muted: colors.GREY,
-    background: colors.WHITE
+    background: colors.BLACK
   }
 }
