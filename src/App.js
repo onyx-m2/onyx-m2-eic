@@ -38,8 +38,7 @@ export default function App(props) {
   const [ layoutGridVisible, setLayoutGridVisible ] = useState(false)
   useHotkeys('end', () => setLayoutGridVisible(visible => !visible))
 
-  const displayOn = 1//useSignalState('UI_displayOn', 0)
-  //const [ m2IsOnline ] = useStatusState({forceOnlineKey: 'pageup', forceOfflineKey: 'pagedown'})
+  const displayOn = useSignalState('UI_displayOn', 0)
 
   useSignalHotkeySimulation({
 
@@ -93,23 +92,27 @@ export default function App(props) {
 
   })
 
-  // clock indicator
-  const [ time, setTime ] = useState()
-  useEffect(() => {
-    const id = setInterval(() => {
-      setTime(new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit'
-      }).toLocaleLowerCase())
-    }, 1000);
-    return () => clearInterval(id)
-  }, [])
+  // clock indicator (cannot use "real" time, because if the cat is started somewhere
+  // out of range of wifi, there won't be a clock update)
+  const hour = useSignalState('UTC_hour', NaN)
+  const minutes = useSignalState('UTC_minutes', NaN)
+  var timeText
+  if (!isNaN(hour) && !isNaN(minutes)) {
+    var hourText = hour
+    if (hour > 12) {
+      hourText = hour - 12
+    } else if (hour === 0) {
+      hourText = 12
+    }
+    var ampm = (hour >= 12) ? 'pm' : 'am'
+    timeText = `${hourText}:${minutes} ${ampm}`
+  }
 
   // ambient (outside) temperature indicator
   const ambientTemp = useSignalState('VCFRONT_tempAmbientFiltered', NaN)
-  let ambientTempText = '-'
+  var ambientTempText
   if (!isNaN(ambientTemp)) {
-    ambientTempText = ambientTemp.toFixed(0)
+    ambientTempText = `${ambientTemp.toFixed(0)} °c`
   }
 
   // this would/will be relevant with a permanent installation, not with a phone
@@ -143,8 +146,8 @@ export default function App(props) {
               c 6 0, 6 -5, 12 -5
               h 56'
         />
-        <LeftStatusTextValue>{time}</LeftStatusTextValue>
-        <RightStatusTextValue>{ambientTempText}°c</RightStatusTextValue>
+        <LeftStatusTextValue>{timeText}</LeftStatusTextValue>
+        <RightStatusTextValue>{ambientTempText}</RightStatusTextValue>
         <GearIndicator />
       </SvgCanvas>
     </ThemeProvider>
