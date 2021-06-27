@@ -94,18 +94,13 @@ export default function App(props) {
 
   // clock indicator (cannot use "real" time, because if the cat is started somewhere
   // out of range of wifi, there won't be a clock update)
-  const hour = useSignalState('UTC_hour', NaN)
-  const minutes = useSignalState('UTC_minutes', NaN)
+  const time = useSignalState('UTC_unixTime', NaN)
   var timeText
-  if (!isNaN(hour) && !isNaN(minutes)) {
-    var hourText = hour
-    if (hour > 12) {
-      hourText = hour - 12
-    } else if (hour === 0) {
-      hourText = 12
-    }
-    var ampm = (hour >= 12) ? 'pm' : 'am'
-    timeText = `${hourText}:${minutes} ${ampm}`
+  if (!isNaN(time)) {
+    timeText = new Date(time * 1000).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    }).toLocaleLowerCase()
   }
 
   // ambient (outside) temperature indicator
