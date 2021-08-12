@@ -17,11 +17,11 @@ export default function CenterCluster() {
 
   const inverterPower = useSignalState('DI_elecPower', 0)
   const drivePower = (inverterPower > 0) ? inverterPower : 0
-  const drivePowerLimit = useSignalState('DI_sysDrivePowerMax', DRIVE_POWER_SNA)
+  const drivePowerLimit = useSignalState('BMS_maxDischargePower', DRIVE_POWER_SNA)
   const ratedDrivePower = 225
 
   const regenPower = (inverterPower < 0) ? -inverterPower : 0
-  const regenPowerLimit = useSignalState('DI_sysRegenPowerMax', REGEN_POWER_SNA)
+  const regenPowerLimit = useSignalState('BMS_maxRegenPower', REGEN_POWER_SNA)
   const ratedRegenPower = 60
 
   // map power value to 0-100 scale using by gauges
