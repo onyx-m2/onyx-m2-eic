@@ -22,7 +22,7 @@ export default function GearIndicator(props) {
 const GearTextValue = styled.text`
   font-family: ${props => props.selected ? props.theme.font.family.bold : props.theme.font.family.normal};
   font-size: ${props => props.theme.font.size.status};
-  fill: ${props => props.selected ? props.theme.color.highlight : props.theme.color.primary};
+  fill: ${props => props.theme.color.primary};
   text-anchor: middle;
   dominant-baseline: middle;
 `

@@ -76,7 +76,7 @@ const font = {
     hero: '150%',
     primary: '100%',
     secondary: '50%',
-    status: '35%',
+    status: '40%',
     caption: '25%'
   }
 }
