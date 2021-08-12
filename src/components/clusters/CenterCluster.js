@@ -15,11 +15,11 @@ export default function CenterCluster() {
   const inverterPower = useSignalState('DI_elecPower', 0)
   const drivePower = (inverterPower > 0) ? inverterPower : 0
   const drivePowerLimit = useSignalState('BMS_maxDischargePower', NaN)
-  const ratedDrivePower = 225
+  const ratedDrivePower = 211
 
   const regenPower = (inverterPower < 0) ? -inverterPower : 0
   const regenPowerLimit = useSignalState('BMS_maxRegenPower', NaN)
-  const ratedRegenPower = 60
+  const ratedRegenPower = 64
 
   const [ powerState, powerStates ] = useNamedValuesSignalState('BMS_powerLimitsState', 'NOT_CALCULATED_FOR_DRIVE')
 
