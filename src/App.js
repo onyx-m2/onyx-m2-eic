@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { ThemeProvider } from 'styled-components'
 import { useSignalHotkeySimulation, useSignalState } from 'onyx-m2-react'
@@ -15,7 +15,6 @@ import { LeftStatusTextValue, RightStatusTextValue } from './components/Base'
 
 // TODO LIST
 // - Display: Drivetrain temps & coolants (inv, stator, oil pump, coolant flow)
-// - Display: brake torque
 // - Display: g-force pad
 // - Display: batt energy summary (kwh ac, dc, regen, discharge)
 // - Consumption indicator (i.e. trip meter)
@@ -24,7 +23,7 @@ import { LeftStatusTextValue, RightStatusTextValue } from './components/Base'
 // QUESTIONS
 // Use another ring current throttle?
 // Maybe have rings for pedal position and torque
-// Maybe a draggy like displau?
+// Maybe a draggy like display?
 
 /**
  * The app component handles on/off, turn indicators, the status area,

@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
 import { M2Provider, SignalProvider } from 'onyx-m2-react';
 import './index.css';
 import App from './App';
@@ -8,8 +7,6 @@ import * as serviceWorker from './serviceWorker';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import dbcFile from '!!raw-loader!./assets/tesla_model3.dbc';
-
-const dbcUrl = process.env.REACT_APP_CONFIG_DBCURL || 'https://raw.githubusercontent.com/onyx-m2/dbc/master/tesla_model3.dbc'
 
 const params = new URLSearchParams(window.location.search)
 const server = global.M2?.getPreference('server_hostname') || params.get('server')

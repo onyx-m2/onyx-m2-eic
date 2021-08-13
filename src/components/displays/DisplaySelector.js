@@ -6,16 +6,14 @@ import DriveDisplay from '../displays/DriveDisplay';
 import ParkDisplay from '../displays/ParkDisplay';
 import IdleDisplay from '../displays/IdleDisplay';
 import ChargeDisplay from '../displays/ChargeDisplay';
-import TirePressureDisplay from '../displays/TirePressureDisplay';
-import TireTemperatureDisplay from '../displays/TireTemperatureDisplay';
-import BrakeTemperatureDisplay from '../displays/BrakeTemperatureDisplay';
+import TireDisplay from './TireDisplay';
+import BrakeDisplay from './BrakeDisplay';
 
 // List of secondary displays that can be manually flipped through on the center
 // cluster
 const SECONDARY_DISPLAYS = [
-  TirePressureDisplay,
-  TireTemperatureDisplay,
-  BrakeTemperatureDisplay
+  TireDisplay,
+  BrakeDisplay
 ]
 
 /**

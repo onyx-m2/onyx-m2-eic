@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import { BannerText, FadeableGroup } from '../Base'
 
 export default function BannerIndicator(props) {
@@ -11,11 +10,3 @@ export default function BannerIndicator(props) {
     </FadeableGroup>
   )
 }
-
-// const TextIndicator = styled.text`
-//   font-family: 'Gotham Bold';
-//   fill: black;
-//   font-size: 50%;
-//   text-anchor: middle;
-//   dominant-baseline: middle;
-// `
