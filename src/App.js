@@ -25,6 +25,10 @@ import { LeftStatusTextValue, RightStatusTextValue } from './components/Base'
 // Maybe have rings for pedal position and torque
 // Maybe a draggy like display?
 
+const BUTTON_SNA = 0
+const BUTTON_OFF = 1
+const BUTTON_ON = 2
+
 /**
  * The app component handles on/off, turn indicators, the status area,
  * the hotkey simulator (for testing on pc), and the design layout "grid". Everything
@@ -33,6 +37,9 @@ import { LeftStatusTextValue, RightStatusTextValue } from './components/Base'
 export default function App(props) {
   const isSunUp = useSignalState('UI_isSunUp', true)
   const theme = isSunUp ? DAY_THEME : NIGHT_THEME
+
+  const leftButtonPressed = useSignalState('VCLEFT_swcLeftPressed', BUTTON_SNA)
+  const rightButtonPressed = useSignalState('VCLEFT_swcRightPressed', BUTTON_SNA)
 
   const [ layoutGridVisible, setLayoutGridVisible ] = useState(false)
   useHotkeys('end', () => setLayoutGridVisible(visible => !visible))
@@ -90,6 +97,13 @@ export default function App(props) {
     ]
 
   })
+
+  // if both steering whell buttons are pressed in at the same time, reload the eic, which
+  // is similar to what Tesla does with the main screen "reboot" (but you must hold the 
+  // buttons longer to reboot the main screen)
+  if (leftButtonPressed === BUTTON_ON && rightButtonPressed === BUTTON_ON) {
+    window.location.reload()
+  }
 
   // clock indicator (cannot use "real" time, because if the car is started somewhere
   // out of range of wifi, there won't be a clock update)
