@@ -5,6 +5,9 @@ import LaneKeepingIndicator from '../indicators/LaneKeepingIndicator'
 import DriveBannerIndicator from '../indicators/DriveBannerIndicator'
 import { ThemeContext } from 'styled-components'
 
+const REGEN_POWER_SNA = 155
+const DRIVE_POWER_SNA = 511
+
 /**
  * Display component that is automatically shown as the default while driving.
  * @param {} props
@@ -18,15 +21,15 @@ export default function DriveDisplay() {
   const elecPower = useSignalState('DI_elecPower', 0)
 
   // max drive power
-  let drivePowerLimit = useSignalState('BMS_maxDischargePower', '-')
-  if (drivePowerLimit !== '-') {
-    drivePowerLimit = Math.round(drivePowerLimit)
+  let drivePowerLimit = useSignalState('DI_sysDrivePowerMax', '-')
+  if (drivePowerLimit === DRIVE_POWER_SNA) {
+    drivePowerLimit = '-'
   }
 
   // max regen power
-  let regenPowerLimit = useSignalState('BMS_maxRegenPower', '-')
-  if (regenPowerLimit !== '-') {
-    regenPowerLimit = Math.round(regenPowerLimit)
+  let regenPowerLimit = useSignalState('DI_sysRegenPowerMax', '-')
+  if (regenPowerLimit === REGEN_POWER_SNA) {
+    regenPowerLimit = '-'
   }
 
   // current non-drivetrain (aux) power draw

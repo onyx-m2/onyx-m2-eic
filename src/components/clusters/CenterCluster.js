@@ -4,6 +4,9 @@ import { useNamedValuesSignalState, useSignalState } from 'onyx-m2-react';
 import RingGauge, { Indicator, Section } from '../gauges/RingGauge';
 import { DisplaySelector } from '../displays/DisplaySelector';
 
+const REGEN_POWER_SNA = 155
+const DRIVE_POWER_SNA = 511
+
 /**
  * The cluster displayed in the center, meant to be the focal point of the driver.
  * This cluster presents a power/regen ring, and context-sensitive displays, as well
@@ -14,23 +17,21 @@ export default function CenterCluster() {
 
   const inverterPower = useSignalState('DI_elecPower', 0)
   const drivePower = (inverterPower > 0) ? inverterPower : 0
-  const drivePowerLimit = useSignalState('BMS_maxDischargePower', NaN)
-  const ratedDrivePower = 211
+  const drivePowerLimit = useSignalState('DI_sysDrivePowerMax', DRIVE_POWER_SNA)
+  const ratedDrivePower = 225
 
   const regenPower = (inverterPower < 0) ? -inverterPower : 0
-  const regenPowerLimit = useSignalState('BMS_maxRegenPower', NaN)
-  const ratedRegenPower = 64
-
-  const [ powerState, powerStates ] = useNamedValuesSignalState('BMS_powerLimitsState', 'NOT_CALCULATED_FOR_DRIVE')
+  const regenPowerLimit = useSignalState('DI_sysRegenPowerMax', REGEN_POWER_SNA)
+  const ratedRegenPower = 60
 
   // map power value to 0-100 scale using by gauges
   const drivePowerIncrements = 100 / ratedDrivePower
   const mappedDrivePower = drivePower * drivePowerIncrements
-  const mappedDrivePowerLimit = (powerState === powerStates.CALCULATED_FOR_DRIVE) ? drivePowerLimit * drivePowerIncrements : 0
-
+  const mappedDrivePowerLimit = (drivePowerLimit !== DRIVE_POWER_SNA) ? drivePowerLimit * drivePowerIncrements : 0
+  
   const regenPowerIncrements = 100 / ratedRegenPower
   const mappedRegenPower = regenPower * regenPowerIncrements
-  const mappedRegenPowerLimit = (powerState === powerStates.CALCULATED_FOR_DRIVE) ? regenPowerLimit * regenPowerIncrements : 0
+  const mappedRegenPowerLimit = (regenPowerLimit !== REGEN_POWER_SNA) ? regenPowerLimit * regenPowerIncrements : 0
 
   const dialBottom = 40
   const dialRadius = 51
