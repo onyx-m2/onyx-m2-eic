@@ -91,7 +91,7 @@ export default function App(props) {
 
   })
 
-  // clock indicator (cannot use "real" time, because if the cat is started somewhere
+  // clock indicator (cannot use "real" time, because if the car is started somewhere
   // out of range of wifi, there won't be a clock update)
   const time = useSignalState('UTC_unixTime', NaN)
   var timeText

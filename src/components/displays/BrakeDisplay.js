@@ -11,17 +11,17 @@ export default function BrakeDisplay(props) {
   return (
     <SecondaryDisplay name='BRAKES'>
       <g className='BrakeDisplay'>
-        <TorqueTextIndicator x={-horzInnerValueOffset} y={-vertValueOffset + vertOffset} value='ESP_brakeTorqueFL' />
-        <TempTextIndicator x={-horzOuterValueOffset} y={-vertValueOffset + vertOffset} value='DI_brakeFLTemp' />
+        <TorqueTextIndicator x={-horzInnerValueOffset} y={-vertValueOffset + vertOffset} signal='ESP_brakeTorqueFL' />
+        <TempTextIndicator x={-horzOuterValueOffset} y={-vertValueOffset + vertOffset} signal='DI_brakeFLTemp' />
 
-        <TorqueTextIndicator x={horzInnerValueOffset} y={-vertValueOffset + vertOffset} value='ESP_brakeTorqueFR' />
-        <TempTextIndicator x={horzOuterValueOffset} y={-vertValueOffset + vertOffset} value='DI_brakeFRTemp' />
+        <TorqueTextIndicator x={horzInnerValueOffset} y={-vertValueOffset + vertOffset} signal='ESP_brakeTorqueFR' />
+        <TempTextIndicator x={horzOuterValueOffset} y={-vertValueOffset + vertOffset} signal='DI_brakeFRTemp' />
 
-        <TorqueTextIndicator x={-horzInnerValueOffset} y={vertValueOffset + vertOffset} value='ESP_brakeTorqueRL' />
-        <TempTextIndicator x={-horzOuterValueOffset} y={vertValueOffset + vertOffset} value='DI_brakeRLTemp' />
+        <TorqueTextIndicator x={-horzInnerValueOffset} y={vertValueOffset + vertOffset} signal='ESP_brakeTorqueRL' />
+        <TempTextIndicator x={-horzOuterValueOffset} y={vertValueOffset + vertOffset} signal='DI_brakeRLTemp' />
 
-        <TorqueTextIndicator x={horzInnerValueOffset} y={vertValueOffset + vertOffset} value='ESP_brakeTorqueRR' />
-        <TempTextIndicator x={horzOuterValueOffset} y={vertValueOffset + vertOffset} value='DI_brakeRRTemp' />
+        <TorqueTextIndicator x={horzInnerValueOffset} y={vertValueOffset + vertOffset} signal='ESP_brakeTorqueRR' />
+        <TempTextIndicator x={horzOuterValueOffset} y={vertValueOffset + vertOffset} signal='DI_brakeRRTemp' />
       </g>
     </SecondaryDisplay>
   )

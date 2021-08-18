@@ -13,17 +13,17 @@ export default function TireDisplay(props) {
   return (
     <SecondaryDisplay name='TIRES'>
       <g className='TireDisplay'>
-        <PressureTextIndicator x={-horzInnerValueOffset} y={-vertValueOffset + vertOffset} value='TPMS_pressureFL' />
-        <TempTextIndicator x={-horzOuterValueOffset} y={-vertValueOffset + vertOffset} value='TPMS_temperatureFL' />
+        <PressureTextIndicator x={-horzInnerValueOffset} y={-vertValueOffset + vertOffset} signal='TPMS_pressureFL' />
+        <TempTextIndicator x={-horzOuterValueOffset} y={-vertValueOffset + vertOffset} signal='TPMS_temperatureFL' />
 
-        <PressureTextIndicator x={horzInnerValueOffset} y={-vertValueOffset + vertOffset} value='TPMS_pressureFR' />
-        <TempTextIndicator x={horzOuterValueOffset} y={-vertValueOffset + vertOffset} value='TPMS_temperatureFR' />
+        <PressureTextIndicator x={horzInnerValueOffset} y={-vertValueOffset + vertOffset} signal='TPMS_pressureFR' />
+        <TempTextIndicator x={horzOuterValueOffset} y={-vertValueOffset + vertOffset} signal='TPMS_temperatureFR' />
 
-        <PressureTextIndicator x={-horzInnerValueOffset} y={vertValueOffset + vertOffset} value='TPMS_pressureRL' />
-        <TempTextIndicator x={-horzOuterValueOffset} y={vertValueOffset + vertOffset} value='TPMS_temperatureRL' />
+        <PressureTextIndicator x={-horzInnerValueOffset} y={vertValueOffset + vertOffset} signal='TPMS_pressureRL' />
+        <TempTextIndicator x={-horzOuterValueOffset} y={vertValueOffset + vertOffset} signal='TPMS_temperatureRL' />
 
-        <PressureTextIndicator x={horzInnerValueOffset} y={vertValueOffset + vertOffset} value='TPMS_pressureRR' />
-        <TempTextIndicator x={horzOuterValueOffset} y={vertValueOffset + vertOffset} value='TPMS_temperatureRR' />
+        <PressureTextIndicator x={horzInnerValueOffset} y={vertValueOffset + vertOffset} signal='TPMS_pressureRR' />
+        <TempTextIndicator x={horzOuterValueOffset} y={vertValueOffset + vertOffset} signal='TPMS_temperatureRR' />
       </g>
     </SecondaryDisplay>
   )
