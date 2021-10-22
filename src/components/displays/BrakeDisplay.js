@@ -5,7 +5,7 @@ import { useSignalState } from 'onyx-m2-react'
 
 export default function BrakeDisplay(props) {
   const vertOffset = 0
-  const horzInnerValueOffset = 18
+  const horzInnerValueOffset = 14
   const horzOuterValueOffset = 30
   const vertValueOffset = 14
   return (

@@ -7,7 +7,7 @@ const BAR_TO_PSI = 14.5038
 
 export default function TireDisplay(props) {
   const vertOffset = 0
-  const horzInnerValueOffset = 18
+  const horzInnerValueOffset = 14
   const horzOuterValueOffset = 30
   const vertValueOffset = 14
   return (
