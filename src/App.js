@@ -53,7 +53,7 @@ export default function App(props) {
       ['UI_displayOn', 1]
     ],
 
-    // set the car to "ready" state, (o)dometer on
+    // set the car to "ready" state, the o is for 'odometer on'
     'o': [
       ['DI_odometer', 69420],
       ['UI_usableSOC', 70],
@@ -72,7 +72,7 @@ export default function App(props) {
     'n': [['DI_gear', 'N']],
     'd': [['DI_gear', 'D']],
 
-    // hit the (b)rakes
+    // hit the brakes
     'b': [
       ['VCLEFT_brakeLightStatus', 'ON'],
       ['DI_uiSpeed', 0],
@@ -80,7 +80,7 @@ export default function App(props) {
       ['BMS_packCurrent', -52],
     ],
 
-    // hit the (a)ccelerator
+    // hit the accelerator
     'a': [
       ['VCLEFT_brakeLightStatus', 0],
       ['DI_uiSpeed', 50],
@@ -98,8 +98,8 @@ export default function App(props) {
 
   })
 
-  // if both steering whell buttons are pressed in at the same time, reload the eic, which
-  // is similar to what Tesla does with the main screen "reboot" (but you must hold the 
+  // if both steering wheel buttons are pressed in at the same time, reload the eic, which
+  // is similar to what Tesla does with the main screen "reboot" (but you must hold the
   // buttons longer to reboot the main screen)
   if (leftButtonPressed === BUTTON_ON && rightButtonPressed === BUTTON_ON) {
     window.location.reload()

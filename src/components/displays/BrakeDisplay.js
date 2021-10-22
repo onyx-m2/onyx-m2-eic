@@ -4,24 +4,24 @@ import SecondaryDisplay from './SecondaryDisplay'
 import { useSignalState } from 'onyx-m2-react'
 
 export default function BrakeDisplay(props) {
-  const vertOffset = 0
-  const horzInnerValueOffset = 14
-  const horzOuterValueOffset = 30
-  const vertValueOffset = 14
+  const vOffset = 0
+  const hInnerValueOffset = 14
+  const hOuterValueOffset = 30
+  const vValueOffset = 14
   return (
     <SecondaryDisplay name='BRAKES'>
       <g className='BrakeDisplay'>
-        <TorqueTextIndicator x={-horzInnerValueOffset} y={-vertValueOffset + vertOffset} signal='ESP_brakeTorqueFL' />
-        <TempTextIndicator x={-horzOuterValueOffset} y={-vertValueOffset + vertOffset} signal='DI_brakeFLTemp' />
+        <TorqueTextIndicator x={-hInnerValueOffset} y={-vValueOffset + vOffset} signal='ESP_brakeTorqueFL' />
+        <TempTextIndicator x={-hOuterValueOffset} y={-vValueOffset + vOffset} signal='DI_brakeFLTemp' />
 
-        <TorqueTextIndicator x={horzInnerValueOffset} y={-vertValueOffset + vertOffset} signal='ESP_brakeTorqueFR' />
-        <TempTextIndicator x={horzOuterValueOffset} y={-vertValueOffset + vertOffset} signal='DI_brakeFRTemp' />
+        <TorqueTextIndicator x={hInnerValueOffset} y={-vValueOffset + vOffset} signal='ESP_brakeTorqueFR' />
+        <TempTextIndicator x={hOuterValueOffset} y={-vValueOffset + vOffset} signal='DI_brakeFRTemp' />
 
-        <TorqueTextIndicator x={-horzInnerValueOffset} y={vertValueOffset + vertOffset} signal='ESP_brakeTorqueRL' />
-        <TempTextIndicator x={-horzOuterValueOffset} y={vertValueOffset + vertOffset} signal='DI_brakeRLTemp' />
+        <TorqueTextIndicator x={-hInnerValueOffset} y={vValueOffset + vOffset} signal='ESP_brakeTorqueRL' />
+        <TempTextIndicator x={-hOuterValueOffset} y={vValueOffset + vOffset} signal='DI_brakeRLTemp' />
 
-        <TorqueTextIndicator x={horzInnerValueOffset} y={vertValueOffset + vertOffset} signal='ESP_brakeTorqueRR' />
-        <TempTextIndicator x={horzOuterValueOffset} y={vertValueOffset + vertOffset} signal='DI_brakeRRTemp' />
+        <TorqueTextIndicator x={hInnerValueOffset} y={vValueOffset + vOffset} signal='ESP_brakeTorqueRR' />
+        <TempTextIndicator x={hOuterValueOffset} y={vValueOffset + vOffset} signal='DI_brakeRRTemp' />
       </g>
     </SecondaryDisplay>
   )
