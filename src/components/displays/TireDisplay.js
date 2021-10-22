@@ -6,24 +6,24 @@ import { useSignalState } from 'onyx-m2-react'
 const BAR_TO_PSI = 14.5038
 
 export default function TireDisplay(props) {
-  const vertOffset = 0
-  const horzInnerValueOffset = 14
-  const horzOuterValueOffset = 30
-  const vertValueOffset = 14
+  const vOffset = 0
+  const hInnerValueOffset = 14
+  const hOuterValueOffset = 30
+  const vValueOffset = 14
   return (
     <SecondaryDisplay name='TIRES'>
       <g className='TireDisplay'>
-        <PressureTextIndicator x={-horzInnerValueOffset} y={-vertValueOffset + vertOffset} signal='TPMS_pressureFL' />
-        <TempTextIndicator x={-horzOuterValueOffset} y={-vertValueOffset + vertOffset} signal='TPMS_temperatureFL' />
+        <PressureTextIndicator x={-hInnerValueOffset} y={-vValueOffset + vOffset} signal='TPMS_pressureFL' />
+        <TempTextIndicator x={-hOuterValueOffset} y={-vValueOffset + vOffset} signal='TPMS_temperatureFL' />
 
-        <PressureTextIndicator x={horzInnerValueOffset} y={-vertValueOffset + vertOffset} signal='TPMS_pressureFR' />
-        <TempTextIndicator x={horzOuterValueOffset} y={-vertValueOffset + vertOffset} signal='TPMS_temperatureFR' />
+        <PressureTextIndicator x={hInnerValueOffset} y={-vValueOffset + vOffset} signal='TPMS_pressureFR' />
+        <TempTextIndicator x={hOuterValueOffset} y={-vValueOffset + vOffset} signal='TPMS_temperatureFR' />
 
-        <PressureTextIndicator x={-horzInnerValueOffset} y={vertValueOffset + vertOffset} signal='TPMS_pressureRL' />
-        <TempTextIndicator x={-horzOuterValueOffset} y={vertValueOffset + vertOffset} signal='TPMS_temperatureRL' />
+        <PressureTextIndicator x={-hInnerValueOffset} y={vValueOffset + vOffset} signal='TPMS_pressureRL' />
+        <TempTextIndicator x={-hOuterValueOffset} y={vValueOffset + vOffset} signal='TPMS_temperatureRL' />
 
-        <PressureTextIndicator x={horzInnerValueOffset} y={vertValueOffset + vertOffset} signal='TPMS_pressureRR' />
-        <TempTextIndicator x={horzOuterValueOffset} y={vertValueOffset + vertOffset} signal='TPMS_temperatureRR' />
+        <PressureTextIndicator x={hInnerValueOffset} y={vValueOffset + vOffset} signal='TPMS_pressureRR' />
+        <TempTextIndicator x={hOuterValueOffset} y={vValueOffset + vOffset} signal='TPMS_temperatureRR' />
       </g>
     </SecondaryDisplay>
   )
