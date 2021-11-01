@@ -26,7 +26,7 @@ import { LeftStatusTextValue, RightStatusTextValue } from './components/Base'
 // Maybe a draggy like display?
 
 const BUTTON_SNA = 0
-const BUTTON_OFF = 1
+//const BUTTON_OFF = 1
 const BUTTON_ON = 2
 
 /**
@@ -55,7 +55,7 @@ export default function App(props) {
 
     // set the car to "ready" state, the o is for 'odometer on'
     'o': [
-      ['DI_odometer', 69420],
+      ['UI_odometer', 69420],
       ['UI_usableSOC', 70],
       ['BMS_thermistorTMin', 21],
       ['BMS_thermistorTMax', 22],

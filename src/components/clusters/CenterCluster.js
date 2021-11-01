@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
-import { useNamedValuesSignalState, useSignalState } from 'onyx-m2-react';
+import { useSignalState } from 'onyx-m2-react';
 import RingGauge, { Indicator, Section } from '../gauges/RingGauge';
 import { DisplaySelector } from '../displays/DisplaySelector';
 
@@ -28,7 +28,7 @@ export default function CenterCluster() {
   const drivePowerIncrements = 100 / ratedDrivePower
   const mappedDrivePower = drivePower * drivePowerIncrements
   const mappedDrivePowerLimit = (drivePowerLimit !== DRIVE_POWER_SNA) ? drivePowerLimit * drivePowerIncrements : 0
-  
+
   const regenPowerIncrements = 100 / ratedRegenPower
   const mappedRegenPower = regenPower * regenPowerIncrements
   const mappedRegenPowerLimit = (regenPowerLimit !== REGEN_POWER_SNA) ? regenPowerLimit * regenPowerIncrements : 0
