@@ -3,6 +3,7 @@ import { ThemeContext } from 'styled-components'
 import { useSignalState } from 'onyx-m2-react'
 import { PrimaryTextValue, SecondaryHorizontalTextIndicator, TextUnits } from '../Base'
 import ArcGauge, { Indicator } from '../gauges/ArcGauge'
+import { useCachedSignalState } from '../../contexts/CachedSignalState'
 
 const WITHIN_SPEED_LIMIT = 0
 const OVER_SPEED_LIMIT = 1
@@ -62,13 +63,13 @@ function speedLimitStatus(speed, limit) {
 export default function LeftCluster() {
   const theme = useContext(ThemeContext)
 
-  const speed = useSignalState('DI_uiSpeed', -1)
+  const speed = useSignalState('DI_uiSpeed', 0)
   const speedText = (speed !== -1) ? speed : '-'
 
   const limit = useSignalState('DAS_fusedSpeedLimit', 0)
   const limitText = (limit !== 0) ? limit : '-'
 
-  const expectedRange = useSignalState('UI_expectedRange', -1)
+  const expectedRange = useCachedSignalState('UI_expectedRange', -1)
   const rangeText = (expectedRange !== -1) ? expectedRange.toFixed(0) : '-'
 
   const { outline, indicators } = theme.geometry.side

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
-import { useSignalState } from 'onyx-m2-react'
 import { PrimaryTextValue, SecondaryHorizontalTextIndicator, TextUnits } from '../Base'
 import ArcGauge, { Indicator } from '../gauges/ArcGauge'
+import { useCachedSignalState } from '../../contexts/CachedSignalState'
 
 /**
  * Right cluster displaying batter battery and consumption information.
@@ -10,16 +10,16 @@ import ArcGauge, { Indicator } from '../gauges/ArcGauge'
 export default function RightCluster() {
   const theme = useContext(ThemeContext)
 
-  const ratedConsumption = useSignalState('UI_ratedConsumption', 0)
+  const ratedConsumption = useCachedSignalState('UI_ratedConsumption', 0)
   const consumptionText = (ratedConsumption !== 0) ? ratedConsumption.toFixed(0) : '-'
 
-  const minT = useSignalState('BMS_thermistorTMin', null)
-  const maxT = useSignalState('BMS_thermistorTMax', null)
+  const minT = useCachedSignalState('BMS_thermistorTMin', null)
+  const maxT = useCachedSignalState('BMS_thermistorTMax', null)
   const temperatureText = (minT !== null && maxT !== null) ? ((maxT + minT) / 2).toFixed(0) : '-'
 
-  const nominalFullPackEnergy = useSignalState('BMS_nominalFullPackEnergy', 0)
-  const nominalEnergyRemaining = useSignalState('BMS_nominalEnergyRemaining', 0)
-  const energyToChargeComplete = useSignalState('BMS_energyToChargeComplete', 0)
+  const nominalFullPackEnergy = useCachedSignalState('BMS_nominalFullPackEnergy', 0)
+  const nominalEnergyRemaining = useCachedSignalState('BMS_nominalEnergyRemaining', 0)
+  const energyToChargeComplete = useCachedSignalState('BMS_energyToChargeComplete', 0)
   var chargingLimit = 0
   if (nominalFullPackEnergy !== 0) {
     chargingLimit = (energyToChargeComplete + nominalEnergyRemaining) / nominalFullPackEnergy * 100
@@ -29,7 +29,7 @@ export default function RightCluster() {
   // const energyAtDestination = useSignalState('UI_energyAtDestination', 0)
   // const socAtDestination = tripPlanningActive ? Math.round(energyAtDestination * 100 / nominalFullPackEnergy) : usableSOC
 
-  const usableSOC = useSignalState('UI_usableSOC', -1)
+  const usableSOC = useCachedSignalState('UI_usableSOC', -1)
   const socText = (usableSOC !== -1) ? usableSOC : '-'
 
   const { outline, indicators } = theme.geometry.side

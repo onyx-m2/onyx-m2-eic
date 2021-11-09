@@ -1,6 +1,6 @@
-import { useSignalState } from 'onyx-m2-react'
 import React from 'react'
 import { HeroTextValue, SecondaryTextIndicator } from '../Base'
+import { useCachedSignalState } from '../../contexts/CachedSignalState'
 
 const ODOMETER_SNA = 4294967.295  // SNA is actually 0xffffffff but the dbc calls
                                   // for scaling the value by 0.001, which the code
@@ -14,9 +14,9 @@ const ODOMETER_SNA = 4294967.295  // SNA is actually 0xffffffff but the dbc call
  * @returns
  */
 export default function ParkDisplay() {
-  const odometer = useSignalState('UI_odometer', ODOMETER_SNA)
-  const nominalFullPack = useSignalState('BMS_nominalFullPackEnergy', 0)
-  const initialFullPack = useSignalState('BMS_initialFullPackEnergy', 0)
+  const odometer = useCachedSignalState('UI_odometer', ODOMETER_SNA)
+  const nominalFullPack = useCachedSignalState('BMS_nominalFullPackEnergy', 0)
+  const initialFullPack = useCachedSignalState('BMS_initialFullPackEnergy', 0)
 
   var odometerText = '-'
   if (odometer !== ODOMETER_SNA) {
