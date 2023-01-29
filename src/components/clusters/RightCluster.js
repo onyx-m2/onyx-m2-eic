@@ -17,13 +17,18 @@ export default function RightCluster() {
   const maxT = useCachedSignalState('BMS_thermistorTMax', null)
   const temperatureText = (minT !== null && maxT !== null) ? ((maxT + minT) / 2).toFixed(0) : '-'
 
-  const nominalFullPackEnergy = useCachedSignalState('BMS_nominalFullPackEnergy', 0)
-  const nominalEnergyRemaining = useCachedSignalState('BMS_nominalEnergyRemaining', 0)
-  const energyToChargeComplete = useCachedSignalState('BMS_energyToChargeComplete', 0)
-  var chargingLimit = 0
-  if (nominalFullPackEnergy !== 0) {
-    chargingLimit = (energyToChargeComplete + nominalEnergyRemaining) / nominalFullPackEnergy * 100
-  }
+  // the BMS_energyStatus (850) message has changed, looks like a multiplexed message
+  // now; for now, I'll disable detecting the charge limit and just hard code to 100
+  // avoid the visually distracting glitches in the battery gauge display
+  // FIXME const nominalFullPackEnergy = useCachedSignalState('BMS_nominalFullPackEnergy', 0)
+  // FIXMEconst nominalEnergyRemaining = useCachedSignalState('BMS_nominalEnergyRemaining', 0)
+  // FIXMEconst energyToChargeComplete = useCachedSignalState('BMS_energyToChargeComplete', 0)
+  // FIXME console.log(`nominalFullPackEnergy:${nominalFullPackEnergy} nominalEnergyRemaining:${nominalEnergyRemaining} energyToChargeComplete:${energyToChargeComplete}`)
+  // FIXME var chargingLimit = 0
+  // FIXMEif (nominalFullPackEnergy !== 0) {
+  // FIXME  chargingLimit = (energyToChargeComplete + nominalEnergyRemaining) / nominalFullPackEnergy * 100
+  // FIXME}
+  const chargingLimit = 100
 
   // const tripPlanningActive = useSignalState('UI_tripPlanningActive', 0)
   // const energyAtDestination = useSignalState('UI_energyAtDestination', 0)
